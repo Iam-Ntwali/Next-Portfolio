@@ -32,3 +32,6 @@ app.all("*", (req: Request, res: Response, next: NextFunction) => {
   err.statusCode = 404;
   next(err);
 });
+
+// Use middleware
+app.use(ErrorMiddleWare);
