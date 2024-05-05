@@ -7,6 +7,7 @@ import jwt, { Secret } from "jsonwebtoken";
 import ejs from "ejs";
 import path from "path";
 import sendMail from "../utils/sendMail";
+import { sendToken } from "../utils/jwt";
 
 // Register user
 interface IRegistrationBody {
@@ -152,6 +153,8 @@ export const loginUser = catchAsyncError(
       if (!isPasswordMatch) {
         return next(new ErrorHandler("Invalid email or password", 400));
       }
+
+      sendToken(user, 200, res);
     } catch (err: any) {
       return next(new ErrorHandler(err.message, 400));
     }
