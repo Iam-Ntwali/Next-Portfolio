@@ -11,7 +11,7 @@ export const isAuthenticated = catchAsyncError(
 
     if (!access_token) {
       return next(
-        new ErrorHandler("Please, Login to access this resource", 400)
+        new ErrorHandler("Please, login to access this resource", 400)
       );
     }
 
@@ -34,3 +34,18 @@ export const isAuthenticated = catchAsyncError(
     next();
   }
 );
+
+// validate user role
+export const authorizeRoles = (...roles: string[]) => {
+  return (req: Request, res: Response, next: NextFunction) => {
+    if (!roles.includes(req.user.role || "")) {
+      return next(
+        new ErrorHandler(
+          `Role: ${req.user.role} is not allowed to access this resource`,
+          403
+        )
+      );
+    }
+    next();
+  };
+};
