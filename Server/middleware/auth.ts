@@ -4,7 +4,8 @@ import ErrorHandler from "../utils/ErrorHandler";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { redis } from "../utils/redis";
 
-const isAuthenticated = catchAsyncError(
+// Authenticated user
+export const isAuthenticated = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     const access_token = req.cookies.access_token;
 
@@ -28,5 +29,8 @@ const isAuthenticated = catchAsyncError(
     if (!user) {
       return next(new ErrorHandler("User not found", 400));
     }
+
+    req.user = JSON.parse(user);
+    next();
   }
 );
