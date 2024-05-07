@@ -13,6 +13,7 @@ import {
   sendToken,
 } from "../utils/jwt";
 import { redis } from "../utils/redis";
+import { getUserById } from "../services/user.service";
 
 // Register user
 interface IRegistrationBody {
@@ -232,6 +233,42 @@ export const updateAccessToken = catchAsyncError(
       });
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 400));
+    }
+  }
+);
+
+// Get user info
+export const getUserInfo = catchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const userId = req.user._id;
+      getUserById(userId, res);
+    } catch (err: any) {
+      return next(new ErrorHandler(err.message, 400));
+    }
+  }
+);
+
+interface ISocialAuthBody {
+  email: string;
+  name: string;
+  avatar: string;
+}
+
+// Social auth
+export const socialAuth = catchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { email, name, avatar } = req.body as ISocialAuthBody;
+      const user = await userModel.findOne({ email });
+      if (!user) {
+        const newUser = await userModel.create({ email, name, avatar });
+        sendToken(newUser, 200, res);
+      } else {
+        sendToken(user, 200, res);
+      }
+    } catch (err: any) {
+      return next(new ErrorHandler(err.message, 400));
     }
   }
 );
