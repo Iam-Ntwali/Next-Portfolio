@@ -22,7 +22,6 @@ interface IRegistrationBody {
   password: string;
   avatar?: string;
 }
-
 export const registrationUser = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -70,12 +69,12 @@ export const registrationUser = catchAsyncError(
     }
   }
 );
+
+// create activation code
 interface IActivationToken {
   token: string;
   activationCode: string;
 }
-
-// create activation code
 export const createActivationToken = (user: any): IActivationToken => {
   const activationCode = Math.floor(1000 + Math.random() * 9000).toString();
   const token = jwt.sign(
@@ -100,7 +99,6 @@ interface IActivationRequest {
   activation_token: string;
   activation_code: string;
 }
-
 export const activateUser = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -141,7 +139,6 @@ interface ILoginRequest {
   email: string;
   password: string;
 }
-
 export const loginUser = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -166,7 +163,6 @@ export const loginUser = catchAsyncError(
     }
   }
 );
-
 export const logoutUser = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -223,6 +219,8 @@ export const updateAccessToken = catchAsyncError(
         { expiresIn: "3d" }
       );
 
+      req.user = user;
+
       res.cookie("access_token", accessToken, accessTokenOptions);
       res.cookie("refresh_token", refreshToken, refreshTokenOptions);
 
@@ -249,13 +247,12 @@ export const getUserInfo = catchAsyncError(
   }
 );
 
+// Social auth
 interface ISocialAuthBody {
   email: string;
   name: string;
   avatar: string;
 }
-
-// Social auth
 export const socialAuth = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -267,6 +264,45 @@ export const socialAuth = catchAsyncError(
       } else {
         sendToken(user, 200, res);
       }
+    } catch (err: any) {
+      return next(new ErrorHandler(err.message, 400));
+    }
+  }
+);
+
+// Update user info]
+interface IUpdateUserInfo {
+  name?: string;
+  email?: string;
+}
+export const updateUserInfo = catchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { name, email } = req.body as IUpdateUserInfo;
+      const userId = req.user._id;
+      const user = await userModel.findById(userId);
+
+      if (email && user) {
+        // check if user email already exists
+        const isEmailExist = await userModel.findOne({ email });
+        if (isEmailExist) {
+          return next(new ErrorHandler("Email already exist", 400));
+        }
+        user.email = email;
+      }
+
+      if (name && user) {
+        user.name = name;
+      }
+
+      await user?.save();
+
+      await redis.set(userId, JSON.stringify(user));
+
+      res.status(201).json({
+        success: true,
+        user,
+      });
     } catch (err: any) {
       return next(new ErrorHandler(err.message, 400));
     }
