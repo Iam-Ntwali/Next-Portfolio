@@ -14,6 +14,7 @@ import {
 } from "../utils/jwt";
 import { redis } from "../utils/redis";
 import { getUserById } from "../services/user.service";
+import cloudinary from "cloudinary";
 
 // Register user
 interface IRegistrationBody {
@@ -343,6 +344,58 @@ export const updatePassword = catchAsyncError(
         success: true,
         user,
       });
+    } catch (err: any) {
+      return next(new ErrorHandler(err.message, 400));
+    }
+  }
+);
+
+// update profile picture
+interface IUpdateProfilePicture {
+  avatar: string;
+}
+export const updateProfilePicture = catchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { avatar } = req.body;
+      const userId = req.user._id;
+      const user = await userModel.findById(userId);
+
+      if (avatar && user) {
+        // if we an existing avatar
+        if (user?.avatar?.public_id) {
+          // first delete old avatar
+          await cloudinary.v2.uploader.destroy(user.avatar.public_id);
+          // Then upload new avatar
+          const avatarCloud = await cloudinary.v2.uploader.upload(avatar, {
+            folder: "Avatars",
+            width: 150,
+          });
+          user.avatar = {
+            public_id: avatarCloud.public_id,
+            publicId: avatarCloud.public_id,
+            url: avatarCloud.secure_url,
+          };
+        } else {
+          const avatarCloud = await cloudinary.v2.uploader.upload(avatar, {
+            folder: "Avatars",
+            width: 150,
+          });
+          user.avatar = {
+            public_id: avatarCloud.public_id,
+            publicId: avatarCloud.public_id,
+            url: avatarCloud.secure_url,
+          };
+        }
+
+        await user.save();
+        await redis.set(userId, JSON.stringify(user));
+
+        res.status(200).json({
+          success: true,
+          user,
+        });
+      }
     } catch (err: any) {
       return next(new ErrorHandler(err.message, 400));
     }
