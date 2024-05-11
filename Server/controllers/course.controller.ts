@@ -4,6 +4,7 @@ import ErrorHandler from "../utils/ErrorHandler";
 import cloudinary from "cloudinary";
 import { createCourse } from "../services/course.service";
 import courseModel from "../models/course.model";
+import { redis } from "../utils/redis";
 
 // upload course
 export const uploadCourse = catchAsyncError(
@@ -73,16 +74,28 @@ export const getSingleCourse = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const courseId = req.params.id;
-      const course = await courseModel
-        .findById(courseId)
-        .select(
-          "-courseData.videoUrl -courseData.suggestion -courseData.questions -courseData.links"
-        );
+      const isCacheExists = await redis.get(courseId);
 
-      res.status(200).json({
-        success: true,
-        course,
-      });
+      if (isCacheExists) {
+        const course = JSON.parse(isCacheExists);
+        res.status(200).json({
+          success: true,
+          course,
+        });
+      } else {
+        const course = await courseModel
+          .findById(courseId)
+          .select(
+            "-courseData.videoUrl -courseData.suggestion -courseData.questions -courseData.links"
+          );
+
+        await redis.set(courseId, JSON.stringify(course));
+
+        res.status(200).json({
+          success: true,
+          course,
+        });
+      }
     } catch (err: any) {
       return next(new ErrorHandler(err.message, 500));
     }
@@ -93,15 +106,57 @@ export const getSingleCourse = catchAsyncError(
 export const getAllCourses = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const courses = await courseModel
-        .find()
-        .select(
-          "-courseData.videoUrl -courseData.suggestion -courseData.questions -courseData.links"
+      const isCacheExists = await redis.get("allCourses");
+      if (isCacheExists) {
+        const courses = JSON.parse(isCacheExists);
+
+        res.status(200).json({
+          success: true,
+          courses,
+        });
+      } else {
+        const courses = await courseModel
+          .find()
+          .select(
+            "-courseData.videoUrl -courseData.suggestion -courseData.questions -courseData.links"
+          );
+
+        await redis.set("allCourses", JSON.stringify(courses));
+
+        res.status(200).json({
+          success: true,
+          courses,
+        });
+      }
+    } catch (err: any) {
+      return next(new ErrorHandler(err.message, 500));
+    }
+  }
+);
+
+// Get course content --for valid users
+export const getCourseByUser = catchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const userCourseList = req.user?.courses;
+      const courseId = req.params.id;
+      const courseExists = userCourseList?.find(
+        (course: any) => course._id.toString() === courseId
+      );
+
+      if (!courseExists) {
+        return next(
+          new ErrorHandler("You are not authorized to access course", 404)
         );
+      }
+
+      const course = await courseModel.findById(courseId);
+
+      const content = course?.courseData;
 
       res.status(200).json({
         success: true,
-        courses,
+        content,
       });
     } catch (err: any) {
       return next(new ErrorHandler(err.message, 500));
