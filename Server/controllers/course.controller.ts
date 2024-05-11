@@ -67,3 +67,24 @@ export const editCourse = catchAsyncError(
     }
   }
 );
+
+// Get single course without purchasing
+export const getSingleCourse = catchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const courseId = req.params.id;
+      const course = await courseModel
+        .findById(courseId)
+        .select(
+          "-courseData.videoUrl -courseData.suggestion -courseData.questions -courseData.links"
+        );
+
+      res.status(200).json({
+        success: true,
+        course,
+      });
+    } catch (err: any) {
+      return next(new ErrorHandler(err.message, 500));
+    }
+  }
+);
