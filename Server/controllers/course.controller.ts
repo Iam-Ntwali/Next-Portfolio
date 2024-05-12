@@ -6,6 +6,9 @@ import { createCourse } from "../services/course.service";
 import courseModel from "../models/course.model";
 import { redis } from "../utils/redis";
 import mongoose from "mongoose";
+import ejs from "ejs";
+import path from "path";
+import sendMail from "../utils/sendMail";
 
 // upload course
 export const uploadCourse = catchAsyncError(
@@ -177,6 +180,7 @@ export const addQuestion = catchAsyncError(
     try {
       const { question, courseId, contentId }: IAddQuestionData = req.body;
       const course = await courseModel.findById(courseId);
+
       if (!mongoose.Types.ObjectId.isValid(contentId)) {
         return next(new ErrorHandler("Invalid content id", 400));
       }
@@ -201,6 +205,87 @@ export const addQuestion = catchAsyncError(
 
       // save the update course
       await course?.save();
+
+      res.status(200).json({
+        success: true,
+        course,
+      });
+    } catch (err: any) {
+      return next(new ErrorHandler(err.message, 500));
+    }
+  }
+);
+
+// add reply to the question
+interface IAddReplyData {
+  answer: string;
+  courseId: string;
+  contentId: string;
+  questionId: string;
+}
+
+export const addReply = catchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { answer, courseId, contentId, questionId }: IAddReplyData =
+        req.body;
+      const course = await courseModel.findById(courseId);
+
+      if (!mongoose.Types.ObjectId.isValid(contentId)) {
+        return next(new ErrorHandler("Invalid content id", 400));
+      }
+
+      const courseContent = course?.courseData?.find((item: any) =>
+        item._id.equals(contentId)
+      );
+
+      if (!courseContent) {
+        return next(new ErrorHandler("Invalid content id", 400));
+      }
+
+      const question = courseContent.questions.find((item: any) =>
+        item._id.equals(questionId)
+      );
+
+      if (!question) {
+        return next(new ErrorHandler("Invalid question id", 400));
+      }
+
+      // create a new reply object
+      const newReply: any = {
+        user: req.user,
+        answer,
+      };
+
+      // add this reply to the question
+      question.questionReplies.push(newReply);
+
+      // save the update course
+      await course?.save();
+
+      if (req.user._id === question.user._id) {
+        // create a notification
+      } else {
+        const data = {
+          name: question.user.name,
+          title: courseContent.title,
+        };
+
+        const html = await ejs.renderFile(
+          path.join(__dirname, "../mails/reply.ejs")
+        );
+
+        try {
+          await sendMail({
+            email: question.user.email,
+            subject: "New reply to your question",
+            template: "reply.ejs",
+            data,
+          });
+        } catch (err: any) {
+          return next(new ErrorHandler(err.message, 500));
+        }
+      }
 
       res.status(200).json({
         success: true,
