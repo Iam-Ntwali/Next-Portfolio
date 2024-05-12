@@ -263,7 +263,7 @@ export const addReply = catchAsyncError(
       // save the update course
       await course?.save();
 
-      if (req.user._id === question.user._id) {
+      if (req.user?._id === question.user._id) {
         // create a notification
       } else {
         const data = {
@@ -272,7 +272,8 @@ export const addReply = catchAsyncError(
         };
 
         const html = await ejs.renderFile(
-          path.join(__dirname, "../mails/reply.ejs")
+          path.join(__dirname, "../mails/reply.ejs"),
+          data
         );
 
         try {
