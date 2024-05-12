@@ -9,6 +9,7 @@ import mongoose from "mongoose";
 import ejs from "ejs";
 import path from "path";
 import sendMail from "../utils/sendMail";
+import { time } from "console";
 
 // upload course
 export const uploadCourse = catchAsyncError(
@@ -287,6 +288,70 @@ export const addReply = catchAsyncError(
           return next(new ErrorHandler(err.message, 500));
         }
       }
+
+      res.status(200).json({
+        success: true,
+        course,
+      });
+    } catch (err: any) {
+      return next(new ErrorHandler(err.message, 500));
+    }
+  }
+);
+
+// add review on a course
+interface IAddReviewData {
+  review: string;
+  courseId: string;
+  rating: number;
+  userId: string;
+}
+
+export const addReview = catchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const userCourseList = req.user?.courses;
+      const courseId = req.params.id;
+
+      // check if courseId already exists in userCourseList based on _id
+      const courseExists = userCourseList?.some(
+        (course: any) => course._id.toString() === courseId.toString()
+      );
+
+      if (!courseExists) {
+        return next(
+          new ErrorHandler("You're not eligible to access this course", 404)
+        );
+      }
+
+      const course = await courseModel.findById(courseId);
+      const { review, rating } = req.body as IAddReviewData;
+
+      const reviewData: any = {
+        user: req.user,
+        comment: review,
+        rating,
+      };
+
+      course?.reviews.push(reviewData);
+
+      let avg = 0;
+      course?.reviews.forEach((item: any) => {
+        avg += item.rating;
+      });
+
+      if (course) {
+        course.rating = avg / course?.reviews.length;
+      }
+
+      await course?.save();
+
+      const notification = {
+        title: "New Review Added",
+        message: `${req.user?.name} has a review to your course ${course?.name}`,
+      };
+
+      // create a notification
 
       res.status(200).json({
         success: true,
