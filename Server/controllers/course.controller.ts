@@ -378,6 +378,27 @@ export const addReplyToReview = catchAsyncError(
       if (!course) {
         return next(new ErrorHandler("Course not found", 404));
       }
+
+      const review = course?.reviews.find((item: any) =>
+        item._id.equals(reviewId)
+      );
+      if (!review) {
+        return next(new ErrorHandler("Review not found", 404));
+      }
+
+      const replyData: any = {
+        user: req.user,
+        comment,
+      };
+
+      course.reviews.push(replyData);
+
+      await course?.save();
+
+      res.status(200).json({
+        success: true,
+        course,
+      });
     } catch (err: any) {
       return next(new ErrorHandler(err.message, 500));
     }
