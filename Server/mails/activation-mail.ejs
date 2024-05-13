@@ -49,7 +49,7 @@
       }
 
       .email-header {
-        background-color: #0070f3;
+        background-color: #f47a00;
         padding: 24px;
         color: #ffffff;
       }
@@ -67,7 +67,7 @@
       /* Buttons */
       .button {
         display: inline-block;
-        background-color: #0070f3;
+        background-color: #f47a00;
         color: #ffffff;
         font-size: 16px;
         font-weight: bold;
@@ -100,10 +100,10 @@
       <div class="email-body">
         <p>Hello <%= user.name %></p>
         <p>
-          Thank you for registering with IBTC E-Learning Platform. Please use
-          the following activation code:
+          Thank you for registering with IBTC E-Learning Platform. <br />Please
+          use the following activation code to activate your account:
         </p>
-        <h2><%= activationCode %></h2>
+        <h2 style="color: #f47a00; font-weight: bold"><%= activationCode %></h2>
         <p>
           This activation code will be valid for <strong>5 minutes.</strong>
         </p>
