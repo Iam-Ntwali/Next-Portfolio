@@ -34,14 +34,14 @@ export const createOrder = catchAsyncError(
       const data: any = {
         courseId: course._id,
         userId: user?._id,
+        payment_info,
       };
-
-      newOrder(data, res, next);
 
       // create order confirmation email
       const mailData = {
         order: {
-          _id: course._id.slice(0, 6),
+          user: req.user.name,
+          _id: course._id.toString().slice(0, 6),
           name: course.name,
           price: course.price,
           date: new Date().toLocaleDateString("en-US", {
@@ -54,8 +54,38 @@ export const createOrder = catchAsyncError(
 
       const html = await ejs.renderFile(
         path.join(__dirname, "../mails/order-confirmation.ejs"),
-        mailData
+        { order: mailData }
       );
+
+      try {
+        if (user) {
+          sendMail({
+            email: user.email,
+            subject: "Order confirmation",
+            template: "order-confirmation.ejs",
+            data: mailData,
+          });
+        }
+      } catch (err: any) {
+        return next(new ErrorHandler(err.message, 500));
+      }
+
+      user?.courses.push(course?._id); // add new ordered course to the user's courses array
+
+      await user?.save(); // save user data to database
+
+      // send notification to the admin dashboard
+      await NotificationModel.create({
+        user: req.user?._id,
+        title: "New Order",
+        message: `You have a new order from ${course?.name}`,
+      });
+
+      course.purchased ? (course.purchased += 1) : course.purchased;
+
+      await course.save();
+
+      newOrder(data, res, next);
     } catch (err: any) {
       return next(new ErrorHandler(err.message, 500));
     }
