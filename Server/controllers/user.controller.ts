@@ -13,7 +13,7 @@ import {
   sendToken,
 } from "../utils/jwt";
 import { redis } from "../utils/redis";
-import { getUserById } from "../services/user.service";
+import { getAllUsersService, getUserById } from "../services/user.service";
 import cloudinary from "cloudinary";
 
 // Register user
@@ -398,6 +398,16 @@ export const updateProfilePicture = catchAsyncError(
       }
     } catch (err: any) {
       return next(new ErrorHandler(err.message, 400));
+    }
+  }
+);
+// Get all users --- only for admin
+export const getAllUsers = catchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      getAllUsersService(res);
+    } catch (err: any) {
+      return next(new ErrorHandler(err.message, 500));
     }
   }
 );
