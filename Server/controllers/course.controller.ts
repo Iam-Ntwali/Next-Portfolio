@@ -10,6 +10,7 @@ import ejs from "ejs";
 import path from "path";
 import sendMail from "../utils/sendMail";
 import { time } from "console";
+import NotificationModel from "../models/notification.model";
 
 // upload course
 export const uploadCourse = catchAsyncError(
@@ -204,6 +205,13 @@ export const addQuestion = catchAsyncError(
       // add this question to the course content
       courseContent.questions.push(newQuestion);
 
+      // send notification
+      await NotificationModel.create({
+        user: req.user?._id,
+        title: "New Question",
+        message: `You have a new question on the ${courseContent.title} video, course ${course?.name} from user ${req.user?.name}`,
+      });
+
       // save the update course
       await course?.save();
 
@@ -266,6 +274,11 @@ export const addReply = catchAsyncError(
 
       if (req.user?._id === question.user._id) {
         // create a notification
+        await NotificationModel.create({
+          user: req.user?._id,
+          title: "New reply",
+          message: `You have a new reply on the ${courseContent.title} video, course ${course?.name} from user ${req.user?.name}`,
+        });
       } else {
         const data = {
           name: question.user.name,
@@ -348,10 +361,11 @@ export const addReview = catchAsyncError(
 
       const notification = {
         title: "New Review Added",
-        message: `${req.user?.name} has a review to your course ${course?.name}`,
+        message: `${req.user?.name} has added a review to your course ${course?.name}`,
       };
 
       // create a notification
+      await NotificationModel.create(notification);
 
       res.status(200).json({
         success: true,
