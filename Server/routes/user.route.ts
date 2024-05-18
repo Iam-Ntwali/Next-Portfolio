@@ -1,6 +1,7 @@
 import express from "express";
 import {
   activateUser,
+  deleteUser,
   getAllUsers,
   getUserInfo,
   loginUser,
@@ -38,6 +39,12 @@ userRouter.put(
   isAuthenticated,
   authorizeRoles("admin"),
   updateUserRole
+);
+userRouter.delete(
+  "/delete-user/:id",
+  isAuthenticated,
+  authorizeRoles("admin"),
+  deleteUser
 );
 
 export default userRouter;
