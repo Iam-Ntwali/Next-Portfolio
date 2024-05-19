@@ -54,7 +54,7 @@ export const createLayout = catchAsyncError(
 
       res.status(200).json({
         success: true,
-        message: "Layout created successfully",
+        message: `Layout ${type} created successfully`,
       });
     } catch (err: any) {
       next(new ErrorHandler(err.message, 500));
