@@ -1,3 +1,4 @@
+import { Josefin_Sans } from "next/font/google";
 import type { Config } from "tailwindcss";
 
 const config: Config = {
@@ -8,10 +9,27 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        Poppins: ["var(--font-poppins)"],
+        Josefin: ["var(--font-Josefin)"],
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      },
+      screens: {
+        "400px": "400px",
+        "800px": "800px",
+        "1000px": "1000px",
+        "1100px": "1100px",
+        "1200px": "1200px",
+        "1300px": "1300px",
+        "1500px": "1500px",
+        // "1800px": "1800px",
+        // "2000px": "2000px",
+        // "2400px": "2400px",
+        // "2800px": "2800px",
       },
     },
   },
