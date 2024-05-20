@@ -35,7 +35,9 @@ const Header: FC<Props> = (props) => {
             <Link
               href={"/"}
               className={`text-[25px] font-Poppins font-[500] text-black dark:text-white`}
-            ></Link>
+            >
+              IBTC E-Learning
+            </Link>
           </div>
         </div>
       </div>
