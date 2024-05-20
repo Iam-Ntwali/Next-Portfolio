@@ -1,11 +1,13 @@
 "use client";
-import { FileChangeInfo } from "fs/promises";
 import React, { FC, useState } from "react";
 import Heading from "./utils/Heading";
+import Header from "./components/Header";
 
 interface Props {}
 
 const Page: FC<Props> = (prop) => {
+  const [open, setOpen] = useState(false);
+  const [activeItem, setActiveItem] = useState(0);
   return (
     <div>
       <Heading
@@ -13,6 +15,8 @@ const Page: FC<Props> = (prop) => {
         description="Welcome to the IBTC Online Learning System Platform"
         keywords="film making, photography, graphics design, software development"
       />
+
+      <Header open={open} setOpen={setOpen} activeItem={activeItem} />
     </div>
   );
 };
