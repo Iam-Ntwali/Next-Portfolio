@@ -41,7 +41,7 @@ const Header: FC<Props> = (activeItem) => {
             </Link>
           </div>
           <div className="flex item-center">
-            <NavItems activeItem={} />
+            <NavItems activeItem={activeItem} isMobile={isMobile} />
           </div>
         </div>
       </div>

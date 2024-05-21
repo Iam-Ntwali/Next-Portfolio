@@ -1,6 +1,7 @@
 import React from "react";
+import Link from "next/link";
 
-export const NavItemsData = [
+export const navItemsData = [
   {
     name: "Home",
     url: "/",
@@ -26,8 +27,17 @@ type Props = {
   activeItem: number;
   isMobile: boolean;
 };
-const NavItems = (props: Props) => {
-  return <div>NavItems</div>;
+const NavItems: React.FC<Props> = ({ activeItem, isMobile }) => {
+  return (
+    <>
+      <div className=" hidden 800px:">
+        {navItemsData &&
+          navItemsData.map((item, index) => {
+            <Link href></Link>;
+          })}
+      </div>
+    </>
+  );
 };
 
 export default NavItems;
