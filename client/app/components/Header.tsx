@@ -1,6 +1,7 @@
 "use client";
 import React, { FC, useState } from "react";
 import Link from "next/link";
+import NavItems from "../utils/NavItems";
 
 type Props = {
   open: boolean;
@@ -8,7 +9,7 @@ type Props = {
   activeItem: number;
 };
 
-const Header: FC<Props> = (props) => {
+const Header: FC<Props> = (activeItem) => {
   const [active, setActive] = useState(false);
   const [openSidebar, setOpenSidebar] = useState(0);
 
@@ -38,6 +39,9 @@ const Header: FC<Props> = (props) => {
             >
               IBTC E-Learning
             </Link>
+          </div>
+          <div className="flex item-center">
+            <NavItems activeItem={} />
           </div>
         </div>
       </div>
