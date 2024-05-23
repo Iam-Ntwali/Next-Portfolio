@@ -2,7 +2,8 @@
 import React, { FC, useState } from "react";
 import Link from "next/link";
 import NavItems from "../utils/NavItems";
-import ThemeSwitcher from "../utils/ThemeSwitcher";
+import { ThemeSwitcher } from "../utils/ThemeSwitcher";
+import { HiOutlineMenuAlt3 } from "react-icons/hi";
 
 type Props = {
   open: boolean;
@@ -44,7 +45,15 @@ const Header: FC<Props> = ({ activeItem }) => {
             </div>
             <div className="flex items-center">
               <NavItems activeItem={activeItem} isMobile={false} />
-              <ThemeSwicther />
+              <ThemeSwitcher />
+              {/* Only for mobile */}
+              <div className="800px:hidden">
+                <HiOutlineMenuAlt3
+                  size={25}
+                  className="cursor-pointer dark:text-white text-black"
+                  onClick={() => setOpenSidebar(1)}
+                />
+              </div>
             </div>
           </div>
         </div>
