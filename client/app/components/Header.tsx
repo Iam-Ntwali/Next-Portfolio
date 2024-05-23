@@ -9,7 +9,7 @@ type Props = {
   activeItem: number;
 };
 
-const Header: FC<Props> = (activeItem) => {
+const Header: FC<Props> = ({ activeItem }) => {
   const [active, setActive] = useState(false);
   const [openSidebar, setOpenSidebar] = useState(0);
 
@@ -32,16 +32,18 @@ const Header: FC<Props> = (activeItem) => {
         }`}
       >
         <div className="w-[95%] 800px:w-[92%] m-auto py-2 h-full">
-          <div className="w-full h-[95px] flex items-center justify-between p-3">
-            <Link
-              href={"/"}
-              className={`text-[25px] font-Poppins font-[500] text-black dark:text-white`}
-            >
-              IBTC E-Learning
-            </Link>
-          </div>
-          <div className="flex item-center">
-            <NavItems activeItem={activeItem} isMobile={isMobile} />
+          <div className="w-full h-[80px] flex items-center justify-between p-3">
+            <div>
+              <Link
+                href={"/"}
+                className={`text-[25px] font-Josefin font-[500] text-black dark:text-white`}
+              >
+                IBTC E-Learning
+              </Link>
+            </div>
+            <div className="flex items-center">
+              <NavItems activeItem={activeItem} isMobile={false} />
+            </div>
           </div>
         </div>
       </div>
