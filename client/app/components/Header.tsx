@@ -1,6 +1,7 @@
 "use client";
 import React, { FC, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import NavItems from "../utils/NavItems";
 import { ThemeSwitcher } from "../utils/ThemeSwitcher";
 import { HiOutlineMenuAlt3, HiOutlineUserCircle } from "react-icons/hi";
@@ -9,6 +10,8 @@ type Props = {
   open: boolean;
   setOpen: (open: boolean) => void;
   activeItem: number;
+  route: string;
+  setRoute: (route: string) => void;
 };
 
 const Header: FC<Props> = ({ activeItem, setOpen }) => {
@@ -48,7 +51,13 @@ const Header: FC<Props> = ({ activeItem, setOpen }) => {
                 href={"/"}
                 className={`text-[25px] font-Poppins font-[500] text-black dark:text-white`}
               >
-                IBTC E-Learning
+                <Image
+                  src={require("../../public/assets/logo-ibtc.png")}
+                  alt=""
+                  height={80}
+                  width={80}
+                  className="py-10px"
+                />
               </Link>
             </div>
             <div className="flex items-center">
