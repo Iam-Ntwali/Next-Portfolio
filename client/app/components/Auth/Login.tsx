@@ -38,6 +38,11 @@ const Login: FC<Props> = (props: Props) => {
   return (
     <div className="w-full">
       <h1 className="{`${styles.title}`}">Login to IBTC E-Learning</h1>
+      <form onSubmit={handleSubmit}>
+        <label className="{`${styles.label}`}" htmlFor="email">
+          Enter your email
+        </label>
+      </form>
     </div>
   );
 };
