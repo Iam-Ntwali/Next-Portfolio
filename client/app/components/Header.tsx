@@ -20,7 +20,7 @@ type Props = {
 
 const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
   const [active, setActive] = useState(false);
-  const [openSidebar, setOpenSidebar] = useState(0);
+  const [openSidebar, setOpenSidebar] = useState(false);
 
   if (typeof window !== "undefined") {
     window.addEventListener("scroll", () => {
@@ -35,7 +35,7 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
   const handleClose = (e: any) => {
     if (e.target.id === "screen") {
       {
-        setOpenSidebar(0);
+        setOpenSidebar(false);
       }
     }
   };
@@ -72,7 +72,7 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
                 <HiOutlineMenuAlt3
                   size={25}
                   className="cursor-pointer dark:text-white text-black"
-                  onClick={() => setOpenSidebar(1)}
+                  onClick={() => setOpenSidebar(true)}
                 />
               </div>
               <HiOutlineUserCircle
@@ -95,12 +95,12 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
               <NavItems activeItem={activeItem} isMobile={true} />
               <HiOutlineUserCircle
                 size={25}
-                className="cursor-pointer ml-5 my-2 text-black dark:text-white"
+                className="hidden 800px:block cursor-pointer dark:text-white text-black"
                 onClick={() => setOpen(true)}
               />
               <br />
               <br />
-              <p className="text-[16px] px-2 pl-5 text-black dark:text-white text-center ">
+              <p className="text-[16px] px-2 pl-5 text-black dark:text-white text-center">
                 IBTC E-Learning © 2024. All rights reserved
               </p>
             </div>
