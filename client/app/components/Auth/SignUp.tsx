@@ -33,7 +33,7 @@ const SignUp: FC<Props> = ({ setRoute }) => {
     },
     validationSchema: schema,
     onSubmit: async ({ name, email, password }) => {
-      setRoute("Verification ");
+      setRoute("Verification");
     },
   });
 
@@ -41,7 +41,7 @@ const SignUp: FC<Props> = ({ setRoute }) => {
   return (
     <div className="w-full py-5 px-10">
       <h1 className={`${styles.title}`}>
-        Create <span className=" text-[#F47A00] ">account</span>
+        Join <span className=" text-[#F47A00] ">IBTC E-Learning</span>
       </h1>
       <br />
       <form onSubmit={handleSubmit}>
