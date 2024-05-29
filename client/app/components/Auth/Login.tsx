@@ -20,7 +20,7 @@ const schema = Yup.object().shape({
   password: Yup.string().required("Please enter your password").min(6),
 });
 
-const Login: FC<Props> = (props: Props) => {
+const Login: FC<Props> = ({ setRoute }) => {
   const [show, setShow] = useState(false);
 
   const formik = useFormik({
@@ -36,14 +36,14 @@ const Login: FC<Props> = (props: Props) => {
 
   const { errors, touched, values, handleChange, handleSubmit } = formik;
   return (
-    <div className="w-full">
+    <div className="w-full py-5 px-10">
       <h1 className={`${styles.title}`}>
         Login to <span className=" text-[#F47A00] ">IBTC E-Learning</span>
       </h1>
       <br />
       <form onSubmit={handleSubmit}>
         <label className={`${styles.label}`} htmlFor="email">
-          Enter your email
+          Enter your email:
         </label>
         <input
           type="email"
@@ -61,7 +61,7 @@ const Login: FC<Props> = (props: Props) => {
         )}
         <div className="w-full mt-5 relative mb-1">
           <label className={`${styles.label}`} htmlFor="email">
-            Enter your password
+            Enter your password:
           </label>
           <input
             type={!show ? "password" : "text"}
@@ -69,7 +69,7 @@ const Login: FC<Props> = (props: Props) => {
             value={values.password}
             onChange={handleChange}
             id="password"
-            placeholder="password!@%"
+            placeholder="at least 6 characters"
             className={`${
               errors.password && touched.password && "border-red-500"
             } ${styles.input}`}
@@ -105,6 +105,15 @@ const Login: FC<Props> = (props: Props) => {
             onClick={() => "google"}
           />
         </div>
+        <h5 className="text-center pt-4 font-Poppins text-[14px] text-black dark:text-white">
+          Not have any account?{" "}
+          <span
+            className="text-[#F47A00] pl-1 cursor-pointer"
+            onClick={() => setRoute("Sign-Up")}
+          >
+            Sign up
+          </span>
+        </h5>
       </form>
     </div>
   );
