@@ -56,6 +56,55 @@ const Login: FC<Props> = (props: Props) => {
             styles.input
           }`}
         />
+        {errors.email && touched.email && (
+          <span className="text-red-500 pt-2 block">{errors.email}</span>
+        )}
+        <div className="w-full mt-5 relative mb-1">
+          <label className={`${styles.label}`} htmlFor="email">
+            Enter your password
+          </label>
+          <input
+            type={!show ? "password" : "text"}
+            name="password"
+            value={values.password}
+            onChange={handleChange}
+            id="password"
+            placeholder="password!@%"
+            className={`${
+              errors.password && touched.password && "border-red-500"
+            } ${styles.input}`}
+          />
+          {!show ? (
+            <AiOutlineEyeInvisible
+              className="absolute bottom-3 right-2 z-1 cursor-pointer"
+              size={20}
+              onClick={() => setShow(true)}
+            />
+          ) : (
+            <AiOutlineEye
+              className="absolute bottom-3 right-2 z-1 cursor-pointer"
+              size={20}
+              onClick={() => setShow(false)}
+            />
+          )}
+          {errors.password && touched.password && (
+            <span className="text-red-500 pt-2 block">{errors.password}</span>
+          )}
+        </div>
+        <div className="w-full mt-5">
+          <input type="submit" value="Login" className={`${styles.button}`} />
+        </div>
+        <br />
+        <h5 className="text-center pt-4 font-Poppins text-[14px] text-black dark:text-white">
+          Or join with
+        </h5>
+        <div className="flex items-center justify-center my-3">
+          <FcGoogle
+            size={30}
+            className="cursor-pointer mr-2"
+            onClick={() => "google"}
+          />
+        </div>
       </form>
     </div>
   );
