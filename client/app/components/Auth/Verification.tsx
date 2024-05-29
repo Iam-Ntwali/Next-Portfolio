@@ -35,6 +35,7 @@ const Verification: FC<Props> = ({ setRoute }) => {
         console.log("An error occurred:", error);
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess, error]);
 
   const inputRefs = [
