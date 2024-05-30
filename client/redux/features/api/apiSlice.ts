@@ -17,7 +17,7 @@ export const apiSlice = createApi({
     }),
     loadUser: builder.query({
       query: (data) => ({
-        url: "me",
+        url: "user-info",
         method: "GET",
         credentials: "include" as const,
       }),
