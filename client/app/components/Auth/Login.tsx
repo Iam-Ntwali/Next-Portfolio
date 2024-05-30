@@ -11,6 +11,7 @@ import { FcGoogle } from "react-icons/fc";
 import { styles } from "../../../app/styles/style";
 import { useLoginMutation } from "@/redux/features/auth/authApi";
 import toast from "react-hot-toast";
+import { signIn } from "next-auth/react";
 
 type Props = {
   setRoute: (route: string) => void;
@@ -123,7 +124,7 @@ const Login: FC<Props> = ({ setRoute, setOpen, refetch }) => {
           <FcGoogle
             size={30}
             className="cursor-pointer mr-2"
-            onClick={() => "google"}
+            onClick={() => signIn("google")}
           />
         </div>
         <h5 className="text-center pt-4 font-Poppins text-[14px] text-black dark:text-white">
