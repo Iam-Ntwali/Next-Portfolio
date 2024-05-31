@@ -3,7 +3,7 @@ import React, { FC, useEffect, useState } from "react";
 import SideBarProfile from "./SideBarProfile";
 import { useLogOutQuery } from "../../../redux/features/auth/authApi";
 import { signOut } from "next-auth/react";
-//import ProfileInfo from "./ProfileInfo";
+import ProfileInfo from "./ProfileInfo";
 //import ChangePassword from "./ChangePassword";
 //import CourseCard from "../Course/CourseCard";
 // import { useGetUsersAllCoursesQuery } from "@/redux/features/courses/coursesApi";
@@ -66,11 +66,11 @@ const Profile: FC<Props> = ({ user }) => {
           logOutHandler={logOutHandler}
         />
       </div>
-      {/* {active === 1 && (
+      {active === 1 && (
         <div className="w-full h-full bg-transparent mt-[80px]">
           <ProfileInfo avatar={avatar} user={user} />
         </div>
-      )} */}
+      )}
 
       {/* {active === 2 && (
         <div className="w-full h-full bg-transparent mt-[80px]">
