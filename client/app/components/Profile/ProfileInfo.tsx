@@ -3,10 +3,10 @@ import { styles } from "../../../app/styles/style";
 import React, { FC, useEffect, useState } from "react";
 import { AiOutlineCamera } from "react-icons/ai";
 import avatarIcon from "../../../public/assets/avatar.png";
-// import {
-//   useEditProfileMutation,
-//   useUpdateAvatarMutation,
-// } from "@/redux/features/user/userApi";
+import {
+  useEditProfileMutation,
+  useUpdateAvatarMutation,
+} from "../../../redux/features/user/userApi";
 import { useLoadUserQuery } from "../../../redux/features/api/apiSlice";
 import { toast } from "react-hot-toast";
 
@@ -17,34 +17,36 @@ type Props = {
 
 const ProfileInfo: FC<Props> = ({ avatar, user }) => {
   const [name, setName] = useState(user && user.name);
-  // const [updateAvatar, { isSuccess, error }] = useUpdateAvatarMutation();
+  const [updateAvatar, { isSuccess, error }] = useUpdateAvatarMutation();
   // const [editProfile, { isSuccess: success, error: updateError }] = useEditProfileMutation();
-  // const [loadUser, setLoadUser] = useState(false);
-  // const {} = useLoadUserQuery(undefined, { skip: loadUser ? false : true });
+  const [loadUser, setLoadUser] = useState(false);
+  const {} = useLoadUserQuery(undefined, { skip: loadUser ? false : true });
 
   const imageHandler = async (e: any) => {
-    // const fileReader = new FileReader();
-    // fileReader.onload = () => {
-    //   if (fileReader.readyState === 2) {
-    //     const avatar = fileReader.result;
-    //     updateAvatar(avatar);
-    //   }
-    // };
-    // fileReader.readAsDataURL(e.target.files[0]);
+    const fileReader = new FileReader();
+
+    fileReader.onload = () => {
+      if (fileReader.readyState === 2) {
+        const avatar = fileReader.result;
+        updateAvatar(avatar);
+      }
+    };
+
+    fileReader.readAsDataURL(e.target.files[0]);
   };
 
-  // useEffect(() => {
-  //   if (isSuccess) {
-  //     setLoadUser(true);
-  //   }
-  //   if (error || updateError) {
-  //     console.log(error);
-  //   }
-  //   if (success) {
-  //     toast.success("Profile updated successfully!");
-  //     setLoadUser(true);
-  //   }
-  // }, [isSuccess, error, success, updateError]);
+  useEffect(() => {
+    if (isSuccess) {
+      setLoadUser(true);
+    }
+    if (error) {
+      console.log(error);
+    }
+    // if (success) {
+    //   toast.success("Profile updated successfully!");
+    //   setLoadUser(true);
+    // }
+  }, [isSuccess, error]); // TODO: to add after success, updateError
 
   const handleSubmit = async (e: any) => {
     // e.preventDefault();
