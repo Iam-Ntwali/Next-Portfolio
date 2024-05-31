@@ -23,15 +23,14 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
   // const {} = useLoadUserQuery(undefined, { skip: loadUser ? false : true });
 
   const imageHandler = async (e: any) => {
-    const fileReader = new FileReader();
-
-    fileReader.onload = () => {
-      if (fileReader.readyState === 2) {
-        const avatar = fileReader.result;
-        updateAvatar(avatar);
-      }
-    };
-    fileReader.readAsDataURL(e.target.files[0]);
+    // const fileReader = new FileReader();
+    // fileReader.onload = () => {
+    //   if (fileReader.readyState === 2) {
+    //     const avatar = fileReader.result;
+    //     updateAvatar(avatar);
+    //   }
+    // };
+    // fileReader.readAsDataURL(e.target.files[0]);
   };
 
   // useEffect(() => {
@@ -48,12 +47,12 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
   // }, [isSuccess, error, success, updateError]);
 
   const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    if (name !== "") {
-      await editProfile({
-        name: name,
-      });
-    }
+    // e.preventDefault();
+    // if (name !== "") {
+    //   await editProfile({
+    //     name: name,
+    //   });
+    // }
   };
 
   return (
@@ -97,8 +96,14 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
                 onChange={(e) => setName(e.target.value)}
               />
             </div>
+            <br />
             <div className="w-[100%] pt-2">
-              <label className="block pb-2">Email Address**: </label>
+              <label className="block pb-1">
+                Email Address:{" "}
+                <span className="text-[crimson] font-[8px]">
+                  (You cannot change your email **)
+                </span>{" "}
+              </label>
               <input
                 type="text"
                 readOnly
