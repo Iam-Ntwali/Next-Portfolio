@@ -55,6 +55,7 @@ const SideBarProfile: FC<Props> = ({
           Change Password
         </h5>
       </div>
+
       <div
         className={`w-full flex items-center py-5 px-5 cursor-pointer ${
           active === 3 ? "dark:bg-slate-800 bg-slate-200" : "bg-transparent"
@@ -66,6 +67,7 @@ const SideBarProfile: FC<Props> = ({
           Enrolled Courses
         </h5>
       </div>
+
       {user.role === "admin" && (
         <Link
           className={`w-full flex items-center py-5 px-5 cursor-pointer ${
@@ -82,6 +84,7 @@ const SideBarProfile: FC<Props> = ({
           </h5>
         </Link>
       )}
+
       <div
         className={`w-full flex items-center py-5 px-5 cursor-pointer ${
           active === 4 ? "dark:bg-slate-800 bg-slate-200" : "bg-transparent"
