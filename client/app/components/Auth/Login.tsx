@@ -2,14 +2,10 @@
 import React, { FC, useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import {
-  AiOutlineEye,
-  AiOutlineEyeInvisible,
-  AiFillGithub,
-} from "react-icons/ai";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import { styles } from "../../../app/styles/style";
-import { useLoginMutation } from "@/redux/features/auth/authApi";
+import { useLoginMutation } from "../../../redux/features/auth/authApi";
 import toast from "react-hot-toast";
 import { signIn } from "next-auth/react";
 
@@ -26,7 +22,7 @@ const schema = Yup.object().shape({
   password: Yup.string().required("Please enter your password").min(6),
 });
 
-const Login: FC<Props> = ({ setRoute, setOpen, refetch }) => {
+const Login: FC<Props> = ({ setRoute, setOpen }) => {
   const [show, setShow] = useState(false);
   const [login, { isSuccess, error }] = useLoginMutation();
 
@@ -45,7 +41,7 @@ const Login: FC<Props> = ({ setRoute, setOpen, refetch }) => {
     if (isSuccess) {
       toast.success("Logged in Successfully!");
       setOpen(false);
-      refetch();
+      // refetch();
     }
     if (error) {
       if ("data" in error) {
