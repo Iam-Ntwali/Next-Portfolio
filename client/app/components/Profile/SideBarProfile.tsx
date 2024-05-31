@@ -26,15 +26,13 @@ const SideBarProfile: FC<Props> = ({
   return (
     <div className="w-full">
       <div
-        className={`w-full flex items-center px-3 py-4 cursor-pointer ${
-          active === 1 ? "dark:bg-slate-800 bg-white" : "bg-transparent"
+        className={`w-full flex items-center py-5 px-5 cursor-pointer rounded-t-[10px] ${
+          active === 1 ? "dark:bg-slate-800 bg-slate-200" : "bg-transparent"
         }`}
         onClick={() => setActive(1)}
       >
         <Image
-          src={
-            user.avatar || avatar ? user.avatar.url || avatar : avatarDefault
-          }
+          src={user.avatar || avatar ? user.avatar || avatar : avatarDefault}
           alt=""
           width={20}
           height={20}
@@ -45,8 +43,8 @@ const SideBarProfile: FC<Props> = ({
         </h5>
       </div>
       <div
-        className={`w-full flex items-center px-3 py-4 cursor-pointer ${
-          active === 2 ? "dark:bg-slate-800 bg-white" : "bg-transparent"
+        className={`w-full flex items-center py-5 px-5 cursor-pointer ${
+          active === 2 ? "dark:bg-slate-800 bg-slate-200" : "bg-transparent"
         }`}
         onClick={() => setActive(2)}
       >
@@ -56,8 +54,8 @@ const SideBarProfile: FC<Props> = ({
         </h5>
       </div>
       <div
-        className={`w-full flex items-center px-3 py-4 cursor-pointer ${
-          active === 3 ? "dark:bg-slate-800 bg-white" : "bg-transparent"
+        className={`w-full flex items-center py-5 px-5 cursor-pointer ${
+          active === 3 ? "dark:bg-slate-800 bg-slate-200" : "bg-transparent"
         }`}
         onClick={() => setActive(3)}
       >
@@ -68,8 +66,8 @@ const SideBarProfile: FC<Props> = ({
       </div>
       {user.role === "admin" && (
         <Link
-          className={`w-full flex items-center px-3 py-4 cursor-pointer ${
-            active === 6 ? "dark:bg-slate-800 bg-white" : "bg-transparent"
+          className={`w-full flex items-center py-5 px-5 cursor-pointer ${
+            active === 6 ? "dark:bg-slate-800 bg-slate-200" : "bg-transparent"
           }`}
           href={"/admin"}
         >
@@ -83,8 +81,8 @@ const SideBarProfile: FC<Props> = ({
         </Link>
       )}
       <div
-        className={`w-full flex items-center px-3 py-4 cursor-pointer ${
-          active === 4 ? "dark:bg-slate-800 bg-white" : "bg-transparent"
+        className={`w-full flex items-center py-5 px-5 cursor-pointer ${
+          active === 4 ? "dark:bg-slate-800 bg-slate-200" : "bg-transparent"
         }`}
         onClick={() => logOutHandler()}
       >
