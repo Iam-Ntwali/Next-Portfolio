@@ -18,7 +18,8 @@ type Props = {
 const ProfileInfo: FC<Props> = ({ avatar, user }) => {
   const [name, setName] = useState(user && user.name);
   const [updateAvatar, { isSuccess, error }] = useUpdateAvatarMutation();
-  // const [editProfile, { isSuccess: success, error: updateError }] = useEditProfileMutation();
+  const [editProfile, { isSuccess: success, error: updateError }] =
+    useEditProfileMutation();
   const [loadUser, setLoadUser] = useState(false);
   const {} = useLoadUserQuery(undefined, { skip: loadUser ? false : true });
 
@@ -42,19 +43,19 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
     if (error) {
       console.log(error);
     }
-    // if (success) {
-    //   toast.success("Profile updated successfully!");
-    //   setLoadUser(true);
-    // }
-  }, [isSuccess, error]); // TODO: to add after success, updateError
+    if (success) {
+      toast.success("Profile updated successfully!");
+      setLoadUser(true);
+    }
+  }, [isSuccess, error, success, updateError]);
 
   const handleSubmit = async (e: any) => {
-    // e.preventDefault();
-    // if (name !== "") {
-    //   await editProfile({
-    //     name: name,
-    //   });
-    // }
+    e.preventDefault();
+    if (name !== "") {
+      await editProfile({
+        name: name,
+      });
+    }
   };
 
   return (
@@ -77,7 +78,7 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
             accept="image/png,image/jpg,image/jpeg,image/webp"
           />
           <label htmlFor="avatar">
-            <div className="w-[30px] h-[30px] bg-slate-900 rounded-full absolute bottom-2 right-2 flex items-center justify-center cursor-pointer">
+            <div className="w-[30px] h-[30px] bg-[#F47400] rounded-full absolute bottom-2 right-2 flex items-center justify-center cursor-pointer">
               <AiOutlineCamera size={20} className="z-1" />
             </div>
           </label>
