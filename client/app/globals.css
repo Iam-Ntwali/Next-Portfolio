@@ -16,6 +16,41 @@
   }
 }
 
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #F47400;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #f5f5f5b0;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #32ae7e;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Chrome, Safari, Edge, Opera */
+@layer base {
+
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
 body {
   color: rgb(var(--foreground-rgb));
 }
@@ -81,19 +116,4 @@ body {
 
 .shake {
   animation: shake 0.5s ease-in-out;
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-}
-
-@layer base {
-
-  input[type="number"]::-webkit-inner-spin-button,
-  input[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
 }

@@ -18,7 +18,7 @@ const Page: FC<Props> = (props) => {
     <div className="min-h-screen">
       <Protected>
         <Heading
-          title={`${user?.name} profile`}
+          title={`${user?.name} Profile - IBTC E-Learning`}
           description="Welcome to the IBTC Online Learning System Platform"
           keywords="film making, photography, graphics design, software development"
         />
