@@ -1,5 +1,5 @@
 "use client";
-import { ThemeSwitcher } from "@/app/utils/ThemeSwitcher";
+import { ThemeSwitcher } from "../../../app/utils/ThemeSwitcher";
 // import {
 //   useGetAllNotificationsQuery,
 //   useUpdateNotificationStatusMutation,
@@ -30,9 +30,9 @@ const DashboardHeader: FC<Props> = ({ open, setOpen }) => {
       )
   );
 
-  const playNotificationSound = () => {
-    audio.play();
-  };
+  // const playNotificationSound = () => {
+  //   audio.play();
+  // };
 
   // useEffect(() => {
   //   if (data) {
@@ -82,19 +82,19 @@ const DashboardHeader: FC<Props> = ({ open, setOpen }) => {
               >
                 <div className="w-full flex items-center justify-between p-2">
                   <p className="text-black dark:text-white">{item.title}</p>
-                  {/* <p
+                  <p
                     className="text-black dark:text-white cursor-pointer"
-                    onClick={() => handleNotificationStatusChange(item._id)}
+                    // onClick={() => handleNotificationStatusChange(item._id)}
                   >
                     Mark as read
-                  </p> */}
+                  </p>
                 </div>
                 <p className="px-2 text-black dark:text-white">
                   {item.message}
                 </p>
-                {/* <p className="p-2 text-black dark:text-white text-[14px]">
-                  {format(item.createdAt)}
-                </p> */}
+                <p className="p-2 text-black dark:text-white text-[14px]">
+                  {/* {format(item.createdAt)} */}
+                </p>
               </div>
             ))}
         </div>
