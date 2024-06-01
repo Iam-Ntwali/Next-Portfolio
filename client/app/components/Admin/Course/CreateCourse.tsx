@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import CourseInformation from "./CourseInformation";
-// import CourseOptions from "./CourseOptions";
+import CourseOptions from "./CourseOptions";
 // import CourseData from "./CourseData";
 // import CourseContent from "./CourseContent";
 // import CoursePreview from "./CoursePreview";
@@ -12,8 +12,8 @@ import { redirect } from "next/navigation";
 type Props = {};
 
 const CreateCourse = (props: Props) => {
-  const [createCourse, { isLoading, isSuccess, error }] =
-    // useCreateCourseMutation();
+  // const [createCourse, { isLoading, isSuccess, error }] =
+  //   // useCreateCourseMutation();
 
   // useEffect(() => {
   //   if (isSuccess) {
@@ -28,7 +28,7 @@ const CreateCourse = (props: Props) => {
   //   }
   // }, [isSuccess, error]);
 
-  // const [active, setActive] = useState(0);
+  const [active, setActive] = useState(0);
   const [courseInfo, setCourseInfo] = useState({
     name: "",
     description: "",
@@ -106,12 +106,12 @@ const CreateCourse = (props: Props) => {
     setCourseData(data);
   };
 
-  const handleCourseCreate = async (e: any) => {
-    const data = courseData;
-    if (!isLoading) {
-      await createCourse(data);
-    }
-  };
+  // const handleCourseCreate = async (e: any) => {
+  //   const data = courseData;
+  //   if (!isLoading) {
+  //     await createCourse(data);
+  //   }
+  // };
 
   return (
     <div className="w-full flex min-h-screen">
