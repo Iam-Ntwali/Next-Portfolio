@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import CourseInformation from "./CourseInformation";
 import CourseOptions from "./CourseOptions";
 import CourseData from "./CourseData";
-// import CourseContent from "./CourseContent";
+import CourseContent from "./CourseContent";
 // import CoursePreview from "./CoursePreview";
 // import { useCreateCourseMutation } from "../../../../redux/features/courses/coursesApi";
 import { toast } from "react-hot-toast";
@@ -28,7 +28,7 @@ const CreateCourse = (props: Props) => {
   //   }
   // }, [isSuccess, error]);
 
-  const [active, setActive] = useState(0);
+  const [active, setActive] = useState(2);
   const [courseInfo, setCourseInfo] = useState({
     name: "",
     description: "",
@@ -136,7 +136,7 @@ const CreateCourse = (props: Props) => {
           />
         )}
 
-        {/* {active === 2 && (
+        {active === 2 && (
           <CourseContent
             active={active}
             setActive={setActive}
@@ -144,7 +144,7 @@ const CreateCourse = (props: Props) => {
             setCourseContentData={setCourseContentData}
             handleSubmit={handleSubmit}
           />
-        )} */}
+        )}
 
         {/* {active === 3 && (
           <CoursePreview
