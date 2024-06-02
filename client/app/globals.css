@@ -35,11 +35,11 @@
   background: #32ae7e;
 }
 
-@layer utilities {
+/* @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
-}
+} */
 
 /* Chrome, Safari, Edge, Opera */
 @layer base {
@@ -116,4 +116,12 @@ body {
 
 .shake {
   animation: shake 0.5s ease-in-out;
+}
+
+.css-dip3t8 {
+  background: unset !important;
+}
+
+.ps-menu-button:hover {
+  background: unset !important;
 }

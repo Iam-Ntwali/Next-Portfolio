@@ -16,6 +16,7 @@ type Props = {
 };
 
 const SideBarProfile: FC<Props> = ({
+  // Sidebar functionality in profile page
   user,
   active,
   avatar,
@@ -24,8 +25,9 @@ const SideBarProfile: FC<Props> = ({
 }) => {
   console.log("this is the role", user);
   return (
+    // Profile sidebar
     <div className="w-full">
-      <div
+      <div // Profile
         className={`w-full flex items-center py-5 px-5 cursor-pointer rounded-t-[10px] ${
           active === 1 ? "dark:bg-slate-800 bg-slate-200" : "bg-transparent"
         }`}
@@ -44,7 +46,8 @@ const SideBarProfile: FC<Props> = ({
           My Account
         </h5>
       </div>
-      <div
+
+      <div // Change Password
         className={`w-full flex items-center py-5 px-5 cursor-pointer ${
           active === 2 ? "dark:bg-slate-800 bg-slate-200" : "bg-transparent"
         }`}
@@ -56,7 +59,7 @@ const SideBarProfile: FC<Props> = ({
         </h5>
       </div>
 
-      <div
+      <div // Enrolled courses
         className={`w-full flex items-center py-5 px-5 cursor-pointer ${
           active === 3 ? "dark:bg-slate-800 bg-slate-200" : "bg-transparent"
         }`}
@@ -68,12 +71,13 @@ const SideBarProfile: FC<Props> = ({
         </h5>
       </div>
 
-      {user.role === "admin" && (
+      {user.role === "admin" && ( // Route to Admin Dashboard
         <Link
           className={`w-full flex items-center py-5 px-5 cursor-pointer ${
             active === 6 ? "dark:bg-slate-800 bg-slate-200" : "bg-transparent"
           }`}
           href={"/admin"}
+          target="_blank"
         >
           <MdOutlineAdminPanelSettings
             size={20}
@@ -85,7 +89,7 @@ const SideBarProfile: FC<Props> = ({
         </Link>
       )}
 
-      <div
+      <div // Route to log out
         className={`w-full flex items-center py-5 px-5 cursor-pointer ${
           active === 4 ? "dark:bg-slate-800 bg-slate-200" : "bg-transparent"
         }`}
