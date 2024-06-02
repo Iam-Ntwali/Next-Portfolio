@@ -33,6 +33,13 @@ const CourseContent: FC<Props> = ({
     e.preventDefault();
   };
 
+  // Handler to Toggle Collapse
+  const handleCollapseToggle = (index: number) => {
+    const updatedCollapsed = [...isCollapsed];
+    updatedCollapsed[index] = !updatedCollapsed[index];
+    setIsCollapsed(updatedCollapsed);
+  };
+
   // Remove link
   const handleRemoveLink = (index: number, linkIndex: number) => {
     const updatedData = [...courseContentData];
@@ -40,11 +47,47 @@ const CourseContent: FC<Props> = ({
     setCourseContentData(updatedData);
   };
 
-  // Handler to Toggle Collapse
-  const handleCollapseToggle = (index: number) => {
-    const updatedCollapsed = [...isCollapsed];
-    updatedCollapsed[index] = !updatedCollapsed[index];
-    setIsCollapsed(updatedCollapsed);
+  // Add link
+  const handleAddLink = (index: number) => {
+    const updatedData = [...courseContentData];
+    updatedData[index].links.push({ title: "", url: "" });
+    setCourseContentData(updatedData);
+  };
+
+  // Add new content
+  const newContentHandler = (item: any) => {
+    if (
+      item.title === "" ||
+      item.description === "" ||
+      item.videoUrl === "" ||
+      item.links[0].title === "" ||
+      item.links[0].url === "" ||
+      item.videoLength === ""
+    ) {
+      toast.error("Please fill in all required fields first!");
+    } else {
+      let newVideoSection = "";
+
+      if (courseContentData.length > 0) {
+        const lastVideoSection =
+          courseContentData[courseContentData.length - 1].videoSection;
+
+        // use the last videoSection if available, else use user input
+        if (lastVideoSection) {
+          newVideoSection = lastVideoSection;
+        }
+      }
+      const newContent = {
+        videoUrl: "",
+        title: "",
+        description: "",
+        videoSection: newVideoSection,
+        videoLength: "",
+        links: [{ title: "", url: "" }],
+      };
+
+      setCourseContentData([...courseContentData, newContent]);
+    }
   };
   return (
     <div className="w-[80%] m-auto mt-24 p-3">
@@ -68,11 +111,11 @@ const CourseContent: FC<Props> = ({
                     <div className="flex w-full items-center">
                       <input
                         type="text"
-                        className={`text-[20px] ${
+                        className={`text-[18px] ${
                           item.videoSection === "Untitled Section"
                             ? "w-[170px]"
                             : "w-min"
-                        } font-Poppins cursor-pointer dark:text-white text-black bg-[#111C43] outline-none`}
+                        } font-Poppins cursor-pointer dark:text-white text-black dark:bg-[#0F1523] bg-[#FFFFFF] outline-none mr-2 p-1 rounded-md`}
                         value={item.videoSection}
                         onChange={(e) => {
                           const updatedData = [...courseContentData];
@@ -198,7 +241,7 @@ const CourseContent: FC<Props> = ({
                       <div className="mb-3 block" key={linkIndex}>
                         <div className="w-full flex items-center justify-between">
                           <label className={styles.label}>
-                            Link {linkIndex + 1}
+                            Resource {linkIndex + 1}
                           </label>
                           <AiOutlineDelete
                             className={`${
@@ -215,7 +258,7 @@ const CourseContent: FC<Props> = ({
                         </div>
                         <input
                           type="text"
-                          placeholder="Resource... (Link title)"
+                          placeholder="Resource Title..."
                           className={`${styles.input}`}
                           value={link.title}
                           onChange={(e) => {
@@ -227,7 +270,7 @@ const CourseContent: FC<Props> = ({
                         />
                         <input
                           type="url"
-                          placeholder="Source Code Url... (Link URL)"
+                          placeholder="Resource URL... (Link)"
                           className={`${styles.input} mt-6`}
                           value={link.url}
                           onChange={(e) => {
@@ -240,7 +283,31 @@ const CourseContent: FC<Props> = ({
                       </div>
                     ))}
                     <br />
+
+                    {/* add link button */}
+                    <div className="inline-block mb-4 rounded-md py-1 px-2 cursor-pointer dark:bg-[#3d4c6e] bg-[#dbdbdb]">
+                      <p
+                        className="flex items-center text-[16px] dark:text-white text-black cursor-pointer "
+                        onClick={() => handleAddLink(index)}
+                      >
+                        <BsLink45Deg className="mr-2" /> Add another resource
+                      </p>
+                    </div>
                   </>
+                )}
+                <br />
+                <br />
+
+                {/* add new content */}
+                {index === courseContentData.length - 1 && (
+                  <div className="inline-block mb-4 rounded-md py-1 px-2 cursor-pointer bg-[#f47400]">
+                    <p
+                      className="flex items-center text-[16px] dark:text-white text-black cursor-pointer font-Poppins"
+                      onClick={(e: any) => newContentHandler(item)}
+                    >
+                      <AiOutlinePlusCircle className="mr-2" /> Add New Content
+                    </p>
+                  </div>
                 )}
               </div>
             </>
