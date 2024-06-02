@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import CourseInformation from "./CourseInformation";
 import CourseOptions from "./CourseOptions";
-// import CourseData from "./CourseData";
+import CourseData from "./CourseData";
 // import CourseContent from "./CourseContent";
 // import CoursePreview from "./CoursePreview";
 // import { useCreateCourseMutation } from "../../../../redux/features/courses/coursesApi";
@@ -125,7 +125,7 @@ const CreateCourse = (props: Props) => {
           />
         )}
 
-        {/* {active === 1 && (
+        {active === 1 && (
           <CourseData
             benefits={benefits}
             setBenefits={setBenefits}
@@ -134,7 +134,7 @@ const CreateCourse = (props: Props) => {
             active={active}
             setActive={setActive}
           />
-        )} */}
+        )}
 
         {/* {active === 2 && (
           <CourseContent
