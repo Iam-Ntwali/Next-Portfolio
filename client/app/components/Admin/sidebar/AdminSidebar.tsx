@@ -43,7 +43,7 @@ const Item: FC<itemProps> = ({ title, to, icon, selected, setSelected }) => {
       className="hover:!bg-[unset]"
     >
       <Link href={to} className="hover:!bg-[unset]">
-        <Typography className="!text-[16px] !font-Poppins text-black dark:text-white">
+        <Typography className="!text-[14px] !font-Poppins text-black dark:text-white">
           {title}
         </Typography>
       </Link>
@@ -96,7 +96,7 @@ const AdminSidebar = () => {
       }}
       className="!bg-white dark:bg-[#111C43]"
     >
-      <Sidebar
+      <Sidebar //SIder bar start
         collapsed={isCollapsed}
         style={{
           position: "fixed",
@@ -115,6 +115,7 @@ const AdminSidebar = () => {
             style={{
               margin: "10px 0 20px 0",
             }}
+            className="dark:text-white text-black"
           >
             {!isCollapsed && (
               <Box
@@ -124,7 +125,7 @@ const AdminSidebar = () => {
                 ml="15px"
               >
                 <Link href="/" className="block">
-                  <h3 className="text-[25px] font-Poppins uppercase dark:text-white text-black">
+                  <h3 className="text-[21px] font-Poppins uppercase dark:text-white text-black">
                     IBTC E-Learning
                   </h3>
                 </Link>
@@ -138,8 +139,8 @@ const AdminSidebar = () => {
             )}
           </MenuItem>
 
-          {!isCollapsed && (
-            <Box mb="25px">
+          {!isCollapsed && ( // Avatar, User name and Role
+            <Box mb="25px" className=" py-2 border-b-[2px] border-[#f47400]">
               <Box display="flex" justifyContent="center" alignItems="center">
                 <Image
                   alt="profile-user"
@@ -149,14 +150,14 @@ const AdminSidebar = () => {
                   style={{
                     cursor: "pointer",
                     borderRadius: "50%",
-                    border: "3px solid #5b6fe6",
+                    border: "3px solid #f47400",
                   }}
                 />
               </Box>
               <Box textAlign="center">
                 <Typography
                   variant="h4"
-                  className="!text-[20px] text-black dark:text-[#ffffffc1]"
+                  className="!text-[18px] text-black dark:text-[#ffffffc1]"
                   sx={{ m: "10px 0 0 0" }}
                 >
                   {user?.name}
@@ -164,19 +165,22 @@ const AdminSidebar = () => {
                 <Typography
                   variant="h6"
                   sx={{ m: "10px 0 0 0" }}
-                  className="!text-[20px] text-black dark:text-[#ffffffc1] capitalize"
+                  className="!text-[16px] text-black dark:text-[#ffffffc1] capitalize"
                 >
-                  - {user?.role}
+                  - {user?.role} -
                 </Typography>
               </Box>
             </Box>
           )}
 
-          <Box paddingLeft={isCollapsed ? undefined : "10%"}>
+          <Box
+            paddingLeft={isCollapsed ? undefined : "10%"}
+            className="text-black dark:text-[#ffffffc1] "
+          >
             <Item
               title="Dashboard"
               to="/admin"
-              icon={<HomeOutlinedIcon />}
+              icon={<HomeOutlinedIcon className="text-[#f47400]" />}
               selected={selected}
               setSelected={setSelected}
             />
@@ -184,7 +188,7 @@ const AdminSidebar = () => {
             <Typography
               variant="h5"
               sx={{ m: "15px 0 5px 25px" }}
-              className="!text-[18px] text-black dark:text-[#ffffffc1] capitalize !font-[400]"
+              className="!text-[16px] text-black dark:text-[#ffffffc1] capitalize !font-[400]"
             >
               {!isCollapsed && "Data"}
             </Typography>
