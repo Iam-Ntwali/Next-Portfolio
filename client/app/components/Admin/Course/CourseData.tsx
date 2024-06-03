@@ -115,7 +115,7 @@ const CourseData: FC<Props> = ({
       </div>
 
       {/* Navigation buttons */}
-      <div className="w-full flex items-center justify-between">
+      <div className="w-full flex items-center justify-between font-Poppins font-600">
         <div
           className="w-full 800px:w-[180px] flex items-center justify-center h-[40px] bg-[#f47400] text-center text-[#fff] rounded mt-8 cursor-pointer"
           onClick={() => prevButton()}

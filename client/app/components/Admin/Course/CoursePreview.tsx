@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import CoursePlayer from "../../../utils/CoursePlayer";
 import { styles } from "../../../../app/styles/style";
-// import Ratings from "../../../../app/utils/Ratings";
+import Ratings from "../../../../app/utils/Ratings";
 import { IoCheckmarkDoneOutline } from "react-icons/io5";
 
 type Props = {
@@ -32,6 +32,7 @@ const CoursePreview: FC<Props> = ({
   return (
     <div className="w-[90%] m-auto py-5 mb-5">
       <div className="w-full relative">
+        {/* Video Preview */}
         <div className="w-full mt-10">
           <CoursePlayer
             videoUrl={courseData?.demoUrl}
@@ -39,7 +40,8 @@ const CoursePreview: FC<Props> = ({
           />
         </div>
 
-        <div className="flex items-center font-Poppins dark:text-white text-black">
+        {/* Price preview */}
+        <div className="flex items-center font-Poppins">
           <h1 className="pt-5 text-[21px]">
             {courseData?.price === 0 ? "Free" : courseData?.price + "$"}
           </h1>
@@ -76,14 +78,100 @@ const CoursePreview: FC<Props> = ({
           </div>
         </div>
 
-        <p className={`${styles.text_font} pb-1`}>• Source code included</p>
-        <p className={`${styles.text_font} pb-1`}>• Full lifetime access</p>
-        <p className={`${styles.text_font} pb-1`}>
+        <p className={`${styles.text_font} pb-1 ${styles.themesTextColor}`}>
+          • Source code included
+        </p>
+        <p className={`${styles.text_font} pb-1 ${styles.themesTextColor}`}>
+          • Full lifetime access
+        </p>
+        <p className={`${styles.text_font} pb-1 ${styles.themesTextColor}`}>
           • Certificate of completion
         </p>
-        <p className={`${styles.text_font} pb-3 800px:pb-1`}>
+        <p
+          className={`${styles.text_font} pb-3 800px:pb-1 ${styles.themesTextColor}`}
+        >
           • Premium Support
         </p>
+      </div>
+
+      <div className={`${styles.themesTextColor} w-full font-Poppins`}>
+        <div className="w-full 800px:pr-5">
+          <h1 className="text-[25px] font-Poppins font-[600]">
+            {courseData?.name}
+          </h1>
+
+          <div className="flex items-center justify-between pt-3">
+            <div className="flex items-center">
+              <Ratings rating={0} />
+              <h5>0 Reviews</h5>
+            </div>
+            <h5>0 Students</h5>
+          </div>
+          <br />
+
+          {/* Benefits */}
+          <h1
+            className={`${styles.themesTextColor} text-[24px] font-Poppins font-[600]`}
+          >
+            What you will learn from this course?
+          </h1>
+        </div>
+        {courseData?.benefits?.map((item: any, index: number) => (
+          <div
+            className="w-full flex 800px:items-center py-2 font-Poppins"
+            key={index}
+          >
+            <div className="w-[15px] mr-1">
+              <IoCheckmarkDoneOutline size={20} />
+            </div>
+            <p className="pl-2">{item.title}</p>
+          </div>
+        ))}
+        <br />
+        <br />
+
+        {/* course prerequisite */}
+        <h1 className="text-[25px] font-Poppins font-[600]">
+          What are the prerequisites for starting this course?
+        </h1>
+        {courseData?.prerequisites?.map((item: any, index: number) => (
+          <div className="w-full flex 800px:items-center py-2" key={index}>
+            <div className="w-[15px] mr-1">
+              <IoCheckmarkDoneOutline size={20} />
+            </div>
+            <p className="pl-2">{item.title}</p>
+          </div>
+        ))}
+        <br />
+        <br />
+
+        {/* course description */}
+        <div className="w-full">
+          <h1 className="text-[24px] font-Poppins font-[600]">
+            Course Details
+          </h1>
+          <p className="text-[16px] mt-[20px] whitespace-pre-line w-full overflow-hidden">
+            {courseData?.description}
+          </p>
+        </div>
+        <br />
+        <br />
+      </div>
+
+      {/* Nav buttons */}
+      <div className="w-full flex items-center justify-between font-Poppins font-[600]">
+        <div
+          className="w-full 800px:w-[180px] flex items-center justify-center h-[40px] bg-[#f47400] text-center text-[#fff] rounded mt-8 cursor-pointer"
+          onClick={() => prevButton()}
+        >
+          Prev
+        </div>
+        <div
+          className="w-full 800px:w-[180px] flex items-center justify-center h-[40px] bg-[#37a39a] text-center text-[#fff] rounded mt-8 cursor-pointer"
+          // onClick={() => createCourse()}
+        >
+          {isEdit ? "Update" : "Create"}
+        </div>
       </div>
     </div>
   );

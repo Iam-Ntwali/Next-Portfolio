@@ -10,4 +10,5 @@ export const styles = {
     "flex flex-row justify-center items-center py-3 px-6 rounded-full cursor-pointer bg-[#F47A00] min-h-[45px] w-full text-[16px] font-Poppins font-semibold",
 
   text_font: "text-[16px] font-Poppins font-500",
+  themesTextColor: "dark:text-white text-black",
 };
