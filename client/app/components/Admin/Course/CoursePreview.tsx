@@ -29,6 +29,10 @@ const CoursePreview: FC<Props> = ({
   const prevButton = () => {
     setActive(active - 1);
   };
+
+  const createCourse = () => {
+    handleCourseCreate();
+  };
   return (
     <div className="w-[90%] m-auto py-5 mb-5">
       <div className="w-full relative">
@@ -168,7 +172,7 @@ const CoursePreview: FC<Props> = ({
         </div>
         <div
           className="w-full 800px:w-[180px] flex items-center justify-center h-[40px] bg-[#37a39a] text-center text-[#fff] rounded mt-8 cursor-pointer"
-          // onClick={() => createCourse()}
+          onClick={() => createCourse()}
         >
           {isEdit ? "Update" : "Create"}
         </div>
