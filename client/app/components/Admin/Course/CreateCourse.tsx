@@ -5,30 +5,31 @@ import CourseOptions from "./CourseOptions";
 import CourseData from "./CourseData";
 import CourseContent from "./CourseContent";
 import CoursePreview from "./CoursePreview";
-// import { useCreateCourseMutation } from "../../../../redux/features/courses/coursesApi";
+import { useCreateCourseMutation } from "../../../../redux/features/courses/coursesApi";
 import { toast } from "react-hot-toast";
 import { redirect } from "next/navigation";
 
 type Props = {};
 
 const CreateCourse = (props: Props) => {
-  // const [createCourse, { isLoading, isSuccess, error }] =
-  //   // useCreateCourseMutation();
+  const [createCourse, { isLoading, isSuccess, error }] =
+    useCreateCourseMutation();
 
-  // useEffect(() => {
-  //   if (isSuccess) {
-  //     toast.success("Course created successfully");
-  //     redirect("/admin/courses");
-  //   }
-  //   if (error) {
-  //     if ("data" in error) {
-  //       const errorMessage = error as any;
-  //       toast.error(errorMessage.data.message);
-  //     }
-  //   }
-  // }, [isSuccess, error]);
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Course created successfully");
+      redirect("/admin/courses");
+    }
+    if (error) {
+      if ("data" in error) {
+        const errorMessage = error as any;
+        toast.error(errorMessage.data.message);
+      }
+    }
+  }, [isSuccess, error]);
 
   const [active, setActive] = useState(0);
+
   const [courseInfo, setCourseInfo] = useState({
     name: "",
     description: "",
@@ -108,9 +109,9 @@ const CreateCourse = (props: Props) => {
 
   const handleCourseCreate = async (e: any) => {
     const data = courseData;
-    // if (!isLoading) {
-    //   await createCourse(data);
-    // }
+    if (!isLoading) {
+      await createCourse(data);
+    }
   };
 
   return (
