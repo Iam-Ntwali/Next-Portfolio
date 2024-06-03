@@ -469,7 +469,7 @@ export const generateVideoUrl = catchAsyncError(
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            Authorization: `Api_Secret ${process.env.VDOCIPHER_API_SECRET}`,
+            Authorization: `Apisecret ${process.env.VDOCIPHER_API_SECRET}`,
           },
         }
       );
