@@ -4,7 +4,7 @@ import CourseInformation from "./CourseInformation";
 import CourseOptions from "./CourseOptions";
 import CourseData from "./CourseData";
 import CourseContent from "./CourseContent";
-// import CoursePreview from "./CoursePreview";
+import CoursePreview from "./CoursePreview";
 // import { useCreateCourseMutation } from "../../../../redux/features/courses/coursesApi";
 import { toast } from "react-hot-toast";
 import { redirect } from "next/navigation";
@@ -28,7 +28,7 @@ const CreateCourse = (props: Props) => {
   //   }
   // }, [isSuccess, error]);
 
-  const [active, setActive] = useState(2);
+  const [active, setActive] = useState(0);
   const [courseInfo, setCourseInfo] = useState({
     name: "",
     description: "",
@@ -104,6 +104,8 @@ const CreateCourse = (props: Props) => {
       courseData: formattedCourseContentData,
     };
     setCourseData(data);
+
+    console.log(data);
   };
 
   // const handleCourseCreate = async (e: any) => {
@@ -146,14 +148,14 @@ const CreateCourse = (props: Props) => {
           />
         )}
 
-        {/* {active === 3 && (
+        {active === 3 && (
           <CoursePreview
             active={active}
             setActive={setActive}
             courseData={courseData}
-            handleCourseCreate={handleCourseCreate}
+            // handleCourseCreate={handleCourseCreate}
           />
-        )} */}
+        )}
       </div>
       <div className="w-[20%] mt-[100px] h-screen fixed z-[-1] top-18 right-0">
         <CourseOptions active={active} setActive={setActive} />

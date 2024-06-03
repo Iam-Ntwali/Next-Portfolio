@@ -135,7 +135,7 @@ const CourseContent: FC<Props> = ({
     }
   };
   return (
-    <div className="w-[80%] m-auto mt-24 p-3">
+    <div className="w-[80%] m-auto mt-24 p-5">
       <form onSubmit={handleSubmit}>
         {/* // Loop in Course data array */}
         {courseContentData?.map((item: any, index: number) => {
