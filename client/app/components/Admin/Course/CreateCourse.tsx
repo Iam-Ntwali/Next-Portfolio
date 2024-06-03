@@ -104,16 +104,14 @@ const CreateCourse = (props: Props) => {
       courseData: formattedCourseContentData,
     };
     setCourseData(data);
-
-    console.log(data);
   };
 
-  // const handleCourseCreate = async (e: any) => {
-  //   const data = courseData;
-  //   if (!isLoading) {
-  //     await createCourse(data);
-  //   }
-  // };
+  const handleCourseCreate = async (e: any) => {
+    const data = courseData;
+    // if (!isLoading) {
+    //   await createCourse(data);
+    // }
+  };
 
   return (
     <div className="w-full flex min-h-screen">
@@ -153,7 +151,7 @@ const CreateCourse = (props: Props) => {
             active={active}
             setActive={setActive}
             courseData={courseData}
-            // handleCourseCreate={handleCourseCreate}
+            handleCourseCreate={handleCourseCreate}
           />
         )}
       </div>
