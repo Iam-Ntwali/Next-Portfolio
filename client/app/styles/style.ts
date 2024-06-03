@@ -8,4 +8,6 @@ export const styles = {
     "w-full text-black dark:text-white bg-transparent border rounded h-[40px] px-2 outline-none mt-[10px] font-Josefin",
   button:
     "flex flex-row justify-center items-center py-3 px-6 rounded-full cursor-pointer bg-[#F47A00] min-h-[45px] w-full text-[16px] font-Poppins font-semibold",
+
+  text_font: "text-[16px] font-Poppins font-500",
 };
