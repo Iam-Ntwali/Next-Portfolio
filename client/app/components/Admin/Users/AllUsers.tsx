@@ -34,31 +34,32 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
   const [deleteUser, { isSuccess: deleteSuccess, error: deleteError }] =
     useDeleteUserMutation({});
 
-  // useEffect(() => {
-  //   if (updateError) {
-  //     if ("data" in updateError) {
-  //       const errorMessage = updateError as any;
-  //       toast.error(errorMessage.data.message);
-  //     }
-  //   }
+  useEffect(() => {
+    if (updateError) {
+      if ("data" in updateError) {
+        const errorMessage = updateError as any;
+        toast.error(errorMessage.data.message);
+      }
+    }
 
-  //   if (isSuccess) {
-  //     refetch();
-  //     toast.success("User role updated successfully");
-  //     setActive(false);
-  //   }
-  //   if (deleteSuccess) {
-  //     refetch();
-  //     toast.success("Delete user successfully!");
-  //     setOpen(false);
-  //   }
-  //   if (deleteError) {
-  //     if ("data" in deleteError) {
-  //       const errorMessage = deleteError as any;
-  //       toast.error(errorMessage.data.message);
-  //     }
-  //   }
-  // }, [updateError, isSuccess, deleteSuccess, deleteError]);
+    if (isSuccess) {
+      refetch();
+      toast.success("User role updated successfully");
+      setActive(false);
+    }
+    if (deleteSuccess) {
+      refetch();
+      toast.success("Delete user successfully!");
+      setOpen(false);
+    }
+    if (deleteError) {
+      if ("data" in deleteError) {
+        const errorMessage = deleteError as any;
+        toast.error(errorMessage.data.message);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [updateError, isSuccess, deleteSuccess, deleteError]);
 
   const columns = [
     { field: "id", headerName: "ID", flex: 0.3 },
@@ -90,8 +91,8 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
           <>
             <Button
               onClick={() => {
-                // setOpen(!open);
-                // setUserId(params.row.id);
+                setOpen(!open);
+                setUserId(params.row.id);
               }}
             >
               <AiOutlineDelete
@@ -135,14 +136,14 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
       });
   }
 
-  // const handleSubmit = async () => {
-  //   await updateUserRole({ email, role });
-  // };
+  const handleSubmit = async () => {
+    await updateUserRole({ email, role });
+  };
 
-  // const handleDelete = async () => {
-  //   const id = userId;
-  //   await deleteUser(id);
-  // };
+  const handleDelete = async () => {
+    const id = userId;
+    await deleteUser(id);
+  };
   return (
     <div className="mt-[120px]">
       {isLoading ? (
@@ -213,6 +214,73 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
           >
             <DataGrid checkboxSelection rows={rows} columns={columns} />
           </Box>
+
+          {active && (
+            <Modal
+              open={active}
+              onClose={() => setActive(!active)}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[450px] bg-white dark:bg-slate-900 rounded-[8px] shadow p-4 outline-none">
+                <h1 className={`${styles.title}`}>Add New Member</h1>
+                <div className="mt-4">
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter email..."
+                    className={`${styles.input}`}
+                  />
+                  <select
+                    name=""
+                    id=""
+                    className={`${styles.input} !mt-6`}
+                    onChange={(e: any) => setRole(e.target.value)}
+                  >
+                    <option value="admin">Admin</option>
+                    <option value="user">User</option>
+                  </select>
+                  <br />
+                  <div
+                    className={`${styles.button} my-6 !h-[30px]`}
+                    onClick={handleSubmit}
+                  >
+                    Submit
+                  </div>
+                </div>
+              </Box>
+            </Modal>
+          )}
+
+          {open && (
+            <Modal
+              open={open}
+              onClose={() => setOpen(!open)}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[450px] bg-white dark:bg-slate-900 rounded-[8px] shadow p-4 outline-none">
+                <h1 className={`${styles.title}`}>
+                  Are you sure you want to delete this user?
+                </h1>
+                <div className="flex w-full items-center justify-between mb-6 mt-4">
+                  <div
+                    className={`${styles.button} !w-[120px] h-[30px] bg-[#57c7a3]`}
+                    onClick={() => setOpen(!open)}
+                  >
+                    Cancel
+                  </div>
+                  <div
+                    className={`${styles.button} !w-[120px] h-[30px] bg-[#d63f3f]`}
+                    onClick={handleDelete}
+                  >
+                    Delete
+                  </div>
+                </div>
+              </Box>
+            </Modal>
+          )}
         </Box>
       )}
     </div>
