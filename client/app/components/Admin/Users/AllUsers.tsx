@@ -107,33 +107,33 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
 
   const rows: any = [];
 
-  // if (isTeam) {
-  // const newData =
-  //   data && data.users.filter((item: any) => item.role === "admin");
-  // newData &&
-  //   newData.forEach((item: any) => {
-  //     rows.push({
-  //       id: item._id,
-  //       name: item.name,
-  //       email: item.email,
-  //       role: item.role,
-  //       courses: item.courses.length,
-  //       created_at: format(item.createdAt),
-  //     });
-  //   });
-  // } else {
-  data &&
-    data.users.forEach((item: any) => {
-      rows.push({
-        id: item._id,
-        name: item.name,
-        email: item.email,
-        role: item.role,
-        courses: item.courses.length,
-        created_at: format(item.createdAt),
+  if (isTeam) {
+    const newData =
+      data && data.users.filter((item: any) => item.role === "admin");
+    newData &&
+      newData.forEach((item: any) => {
+        rows.push({
+          id: item._id,
+          name: item.name,
+          email: item.email,
+          role: item.role,
+          courses: item.courses.length,
+          created_at: format(item.createdAt),
+        });
       });
-    });
-  // }
+  } else {
+    data &&
+      data.users.forEach((item: any) => {
+        rows.push({
+          id: item._id,
+          name: item.name,
+          email: item.email,
+          role: item.role,
+          courses: item.courses.length,
+          created_at: format(item.createdAt),
+        });
+      });
+  }
 
   // const handleSubmit = async () => {
   //   await updateUserRole({ email, role });
@@ -149,6 +149,16 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
         <Loader />
       ) : (
         <Box m="20px">
+          {isTeam && (
+            <div className="w-full flex justify-end">
+              <div
+                className={`${styles.button} !w-[200px] !rounded-[10px] bg-[#57c7a3] !h-[35px] dark:border dark:border-[#ffffff6c]`}
+                onClick={() => setActive(!active)}
+              >
+                Add New Member
+              </div>
+            </div>
+          )}
           <Box
             m="40px 0 0 0"
             height="80vh"
