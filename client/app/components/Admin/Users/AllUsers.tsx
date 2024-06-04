@@ -12,6 +12,7 @@ import {
 } from "../../../../redux/features/user/userApi";
 import { styles } from "../../../../app/styles/style";
 import { toast } from "react-hot-toast";
+import { alignProperty } from "@mui/material/styles/cssUtils";
 
 type Props = {
   isTeam?: boolean;
@@ -68,6 +69,20 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
     { field: "created_at", headerName: "Joined At", flex: 0.5 },
     {
       field: " ",
+      headerName: "Email",
+      flex: 0.2,
+      renderCell: (params: any) => {
+        return (
+          <>
+            <a href={`mailto:${params.row.email}`} target="_blank">
+              <AiOutlineMail className="dark:text-white text-black" size={20} />
+            </a>
+          </>
+        );
+      },
+    },
+    {
+      field: "  ",
       headerName: "Delete",
       flex: 0.2,
       renderCell: (params: any) => {
@@ -88,51 +103,37 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
         );
       },
     },
-    {
-      field: "  ",
-      headerName: "Email",
-      flex: 0.2,
-      renderCell: (params: any) => {
-        return (
-          <>
-            <a href={`mailto:${params.row.email}`}>
-              <AiOutlineMail className="dark:text-white text-black" size={20} />
-            </a>
-          </>
-        );
-      },
-    },
   ];
 
   const rows: any = [];
 
-  if (isTeam) {
-    // const newData =
-    //   data && data.users.filter((item: any) => item.role === "admin");
-    // newData &&
-    //   newData.forEach((item: any) => {
-    //     rows.push({
-    //       id: item._id,
-    //       name: item.name,
-    //       email: item.email,
-    //       role: item.role,
-    //       courses: item.courses.length,
-    //       created_at: format(item.createdAt),
-    //     });
-    //   });
-  } else {
-    // data &&
-    //   data.users.forEach((item: any) => {
-    //     rows.push({
-    //       id: item._id,
-    //       name: item.name,
-    //       email: item.email,
-    //       role: item.role,
-    //       courses: item.courses.length,
-    //       created_at: format(item.createdAt),
-    //     });
-    //   });
-  }
+  // if (isTeam) {
+  // const newData =
+  //   data && data.users.filter((item: any) => item.role === "admin");
+  // newData &&
+  //   newData.forEach((item: any) => {
+  //     rows.push({
+  //       id: item._id,
+  //       name: item.name,
+  //       email: item.email,
+  //       role: item.role,
+  //       courses: item.courses.length,
+  //       created_at: format(item.createdAt),
+  //     });
+  //   });
+  // } else {
+  data &&
+    data.users.forEach((item: any) => {
+      rows.push({
+        id: item._id,
+        name: item.name,
+        email: item.email,
+        role: item.role,
+        courses: item.courses.length,
+        created_at: format(item.createdAt),
+      });
+    });
+  // }
 
   // const handleSubmit = async () => {
   //   await updateUserRole({ email, role });

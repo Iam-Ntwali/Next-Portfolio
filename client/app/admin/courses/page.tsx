@@ -13,7 +13,7 @@ const page = (props: Props) => {
     <div>
       <AdminProtected>
         <Heading
-          title="Admin - IBTC E-Learning"
+          title="Courses Info Dashboard"
           description="Welcome to the IBTC Online Learning System Platform"
           keywords="film making, photography, graphics design, software development"
         />
