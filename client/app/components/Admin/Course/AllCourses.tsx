@@ -10,7 +10,7 @@ import {
 } from "../../../../redux/features/courses/coursesApi";
 import Loader from "../../Loader/Loader";
 import { format } from "timeago.js";
-import { styles } from "@/app/styles/style";
+import { styles } from "../../../../app/styles/style";
 import { toast } from "react-hot-toast";
 import Link from "next/link";
 
