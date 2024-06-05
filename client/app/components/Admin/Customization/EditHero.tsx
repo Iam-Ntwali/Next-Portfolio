@@ -10,6 +10,15 @@ import { styles } from "../../../../app/styles/style";
 type Props = {};
 
 const EditHero: FC<Props> = (props: Props) => {
+  const [image, setImage] = useState("");
+  const [title, setTitle] = useState("");
+  const [subTitle, setSubTitle] = useState("");
+  // const { data, refetch } = useGetHeroDataQuery("Banner", {
+  //   refetchOnMountOrArgChange: true,
+  // });
+  // const [editLayout, { isLoading, isSuccess, error }] =
+  // useEditLayoutMutation();
+
   return <div>EditHero</div>;
 };
 
