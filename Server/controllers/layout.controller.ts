@@ -31,7 +31,6 @@ export const createLayout = catchAsyncError(
             },
           },
         };
-
         await LayoutModel.create(banner);
       }
 

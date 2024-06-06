@@ -9,6 +9,7 @@ export const layoutApi = apiSlice.injectEndpoints({
         credentials: "include" as const,
       }),
     }),
+
     editLayout: builder.mutation({
       query: ({ type, image, title, subtitle, faq, categories }) => ({
         url: `edit-layout`,
