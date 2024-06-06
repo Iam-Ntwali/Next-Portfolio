@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import ErrorHandler from "../utils/ErrorHandler";
+
 export const ErrorMiddleWare = (
   err: any,
   req: Request,

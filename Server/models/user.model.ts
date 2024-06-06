@@ -1,10 +1,12 @@
 require("dotenv").config();
 import mongoose, { Document, Model, Schema } from "mongoose";
 import bcrypt from "bcryptjs";
-import { Interface } from "readline";
+// import { Interface } from "readline";
 import jwt from "jsonwebtoken";
 
 const emailRegexPattern: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const passwordRegexPattern: RegExp =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
 
 export interface IUser extends Document {
   name: string;
@@ -12,15 +14,14 @@ export interface IUser extends Document {
   password: string;
   avatar: {
     public_id: any;
-    publicId: string;
     url: string;
   };
   role: string;
   isVerified: boolean;
   courses: Array<{ courseId: string }>;
   comparePassword(password: string): Promise<boolean>;
-  signAccessToken: () => String;
-  signRefreshToken: () => String;
+  signAccessToken: () => string;
+  signRefreshToken: () => string;
 }
 
 const userSchema: Schema<IUser> = new mongoose.Schema(
@@ -42,12 +43,17 @@ const userSchema: Schema<IUser> = new mongoose.Schema(
     },
     password: {
       type: String,
+      validate: function (value: string) {
+        return passwordRegexPattern.test(value);
+      },
+      message:
+        "Please enter a valid password (must include at least one capital letter, digit, and special characters)",
       // required: [true, "Please enter your password"],
       minlength: [6, "Password must be at least 6 characters"],
       select: false,
     },
     avatar: {
-      publicId: String,
+      public_id: String,
       url: String,
     },
     role: {

@@ -9,9 +9,9 @@ interface IComment extends Document {
 
 interface IReview extends Document {
   user: IUser;
-  rating: number;
+  rating?: number;
   comment: string;
-  commentReplies: IComment[];
+  commentReplies?: IReview[];
 }
 
 interface ILink extends Document {
@@ -25,7 +25,7 @@ interface ICourseData extends Document {
   videoUrl: string;
   videoThumbnail: object;
   videoSection: string;
-  videoDuration: number;
+  videoLength: number;
   videoPlayer: string;
   links: ILink[];
   suggestion: string;
@@ -35,6 +35,7 @@ interface ICourseData extends Document {
 interface ICourse extends Document {
   name: string;
   description: string;
+  categories: string;
   price: number;
   estimatedPrice?: number;
   thumbnail: object;
@@ -46,36 +47,43 @@ interface ICourse extends Document {
   reviews: IReview[];
   courseData: ICourseData[];
   rating?: number;
-  purchased?: number;
+  purchased: number;
 }
 
-const reviewSchema = new Schema<IReview>({
-  user: Object,
-  rating: {
-    type: Number,
-    default: 0,
+const reviewSchema = new Schema<IReview>(
+  {
+    user: Object,
+    rating: {
+      type: Number,
+      default: 0,
+    },
+    comment: String,
+    commentReplies: [Object],
   },
-  comment: String,
-  commentReplies: [Object],
-});
+  { timestamps: true }
+);
 
 const linkSchema = new Schema<ILink>({
   title: String,
   url: String,
 });
 
-const commentSchema = new Schema<IComment>({
-  user: Object,
-  question: String,
-  questionReplies: [Object],
-});
+const commentSchema = new Schema<IComment>(
+  {
+    user: Object,
+    question: String,
+    questionReplies: [Object],
+  },
+  { timestamps: true }
+);
 
 const courseDataSchema = new Schema<ICourseData>({
   title: String,
   description: String,
+  videoThumbnail: Object,
   videoUrl: String,
   videoSection: String,
-  videoDuration: Number,
+  videoLength: Number,
   videoPlayer: String,
   links: [linkSchema],
   suggestion: String,
@@ -89,6 +97,10 @@ const courseSchema = new Schema<ICourse>(
       required: true,
     },
     description: {
+      type: String,
+      required: true,
+    },
+    categories: {
       type: String,
       required: true,
     },

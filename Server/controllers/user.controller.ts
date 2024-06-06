@@ -30,7 +30,7 @@ interface IRegistrationBody {
 export const registrationUser = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { name, email, password, avatar } = req.body;
+      const { name, email, password } = req.body;
 
       const isEmailExist = await userModel.findOne({ email });
       if (isEmailExist) {
@@ -153,6 +153,7 @@ export const loginUser = catchAsyncError(
       }
 
       const user = await userModel.findOne({ email }).select("+password");
+
       if (!user) {
         return next(new ErrorHandler("Invalid email or password", 400));
       }
@@ -173,7 +174,7 @@ export const logoutUser = catchAsyncError(
     try {
       res.cookie("access_token", "", { maxAge: 1 });
       res.cookie("refresh_token", "", { maxAge: 1 });
-      const userId = req.user._id || "";
+      const userId = req.user?._id || "";
 
       redis.del(userId);
 
@@ -231,11 +232,7 @@ export const updateAccessToken = catchAsyncError(
 
       await redis.set(user._id, JSON.stringify(user), "EX", 604800); // expire in 7 days
 
-      res.status(200).json({
-        status: "success",
-        success: true,
-        accessToken,
-      });
+      return next();
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 400));
     }
@@ -246,7 +243,7 @@ export const updateAccessToken = catchAsyncError(
 export const getUserInfo = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const userId = req.user._id;
+      const userId = req.user?._id;
       getUserById(userId, res);
     } catch (err: any) {
       return next(new ErrorHandler(err.message, 400));
@@ -321,7 +318,7 @@ export const updatePassword = catchAsyncError(
       if (!oldPassword || !newPassword) {
         return next(new ErrorHandler("Please enter old and new password", 400));
       }
-      const userId = req.user._id;
+      const userId = req.user?._id;
       const user = await userModel.findById(userId).select("+password");
 
       if (user?.password === undefined) {
@@ -355,15 +352,15 @@ interface IUpdateProfilePicture {
 export const updateProfilePicture = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { avatar } = req.body;
-      const userId = req.user._id;
-      const user = await userModel.findById(userId);
+      const { avatar } = req.body as IUpdateProfilePicture;
+      const userId = req.user?._id;
+      const user = await userModel.findById(userId).select("+password");
 
       if (avatar && user) {
         // if we an existing avatar
         if (user?.avatar?.public_id) {
           // first delete old avatar
-          await cloudinary.v2.uploader.destroy(user.avatar.public_id);
+          await cloudinary.v2.uploader.destroy(user?.avatar?.public_id);
           // Then upload new avatar
           const avatarCloud = await cloudinary.v2.uploader.upload(avatar, {
             folder: "Avatars",
@@ -371,7 +368,6 @@ export const updateProfilePicture = catchAsyncError(
           });
           user.avatar = {
             public_id: avatarCloud.public_id,
-            publicId: avatarCloud.public_id,
             url: avatarCloud.secure_url,
           };
         } else {
@@ -381,7 +377,6 @@ export const updateProfilePicture = catchAsyncError(
           });
           user.avatar = {
             public_id: avatarCloud.public_id,
-            publicId: avatarCloud.public_id,
             url: avatarCloud.secure_url,
           };
         }

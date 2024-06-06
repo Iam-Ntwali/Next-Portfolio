@@ -24,6 +24,7 @@ export const uploadCourse = catchAsyncError(
           thumbnail,
           { folders: "Courses" }
         );
+
         data.thumbnail = {
           public_id: thumbnailOnCloud.public_id,
           url: thumbnailOnCloud.secure_url,
@@ -141,7 +142,7 @@ export const getAllCourses = catchAsyncError(
           "-courseData.videoUrl -courseData.suggestion -courseData.questions -courseData.links"
         );
 
-      await redis.set("allCourses", JSON.stringify(courses), "EX", 604800); // 7 days
+      // await redis.set("allCourses", JSON.stringify(courses), "EX", 604800); // 7 days
 
       res.status(200).json({
         success: true,
@@ -160,13 +161,14 @@ export const getCourseByUser = catchAsyncError(
     try {
       const userCourseList = req.user?.courses;
       const courseId = req.params.id;
+
       const courseExists = userCourseList?.find(
         (course: any) => course._id.toString() === courseId
       );
 
       if (!courseExists) {
         return next(
-          new ErrorHandler("You are not authorized to access course", 404)
+          new ErrorHandler("You are not authorized to access this course", 404)
         );
       }
 
@@ -278,6 +280,8 @@ export const addReply = catchAsyncError(
       const newReply: any = {
         user: req.user,
         answer,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
       };
 
       // add this reply to the question
@@ -329,7 +333,7 @@ export const addReply = catchAsyncError(
 // add review on a course
 interface IAddReviewData {
   review: string;
-  courseId: string;
+  // courseId: string;
   rating: number;
   userId: string;
 }
@@ -368,7 +372,7 @@ export const addReview = catchAsyncError(
       });
 
       if (course) {
-        course.rating = avg / course?.reviews.length;
+        course.rating = avg / course.reviews.length;
       }
 
       await course?.save();
@@ -417,6 +421,8 @@ export const addReplyToReview = catchAsyncError(
       const replyData: any = {
         user: req.user,
         comment,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
       };
 
       if (!review.commentReplies) {
@@ -426,6 +432,8 @@ export const addReplyToReview = catchAsyncError(
       review.commentReplies?.push(replyData);
 
       await course?.save();
+
+      await redis.set(courseId, JSON.stringify(course), "EX", 604800); // 7days
 
       res.status(200).json({
         success: true,
