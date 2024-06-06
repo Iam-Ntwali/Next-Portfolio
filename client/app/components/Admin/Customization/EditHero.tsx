@@ -26,16 +26,16 @@ const EditHero: FC<Props> = (props: Props) => {
       setSubtitle(data?.layout?.banner.subtitle);
       setImage(data?.layout?.banner?.image?.url);
     }
-    // if (isSuccess) {
-    //   toast.success("Hero updated successfully!");
-    //   refetch();
-    // }
-    // if (error) {
-    //   if ("data" in error) {
-    //     const errorData = error as any;
-    //     toast.error(errorData?.data?.message);
-    //   }
-    // }
+    if (isSuccess) {
+      toast.success("Hero updated successfully!");
+      refetch();
+    }
+    if (error) {
+      if ("data" in error) {
+        const errorData = error as any;
+        toast.error(errorData?.data?.message);
+      }
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, isSuccess, error]);
 
