@@ -1,7 +1,7 @@
 import mongoose, { Document, Model, Schema } from "mongoose";
 import { IUser } from "./user.model";
 
-interface IComment extends Document {
+export interface IComment extends Document {
   user: IUser;
   question: string;
   questionReplies: IComment[];
@@ -32,7 +32,7 @@ interface ICourseData extends Document {
   questions: IComment[];
 }
 
-interface ICourse extends Document {
+export interface ICourse extends Document {
   name: string;
   description: string;
   categories: string;
@@ -136,7 +136,6 @@ const courseSchema = new Schema<ICourse>(
     benefits: [{ title: String }],
     prerequisites: [{ title: String }],
     reviews: [reviewSchema],
-
     courseData: [courseDataSchema],
     rating: {
       type: Number,
