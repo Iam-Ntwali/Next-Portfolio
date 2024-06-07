@@ -342,6 +342,7 @@ export const addReview = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userCourseList = req.user?.courses;
+
       const courseId = req.params.id;
 
       // check if courseId already exists in userCourseList based on _id
@@ -356,6 +357,7 @@ export const addReview = catchAsyncError(
       }
 
       const course = await courseModel.findById(courseId);
+
       const { review, rating } = req.body as IAddReviewData;
 
       const reviewData: any = {
@@ -376,6 +378,8 @@ export const addReview = catchAsyncError(
       }
 
       await course?.save();
+
+      await redis.set(courseId, JSON.stringify(course), "EX", 604800); // 7days
 
       const notification = {
         title: "New Review Added",
@@ -411,9 +415,10 @@ export const addReplyToReview = catchAsyncError(
         return next(new ErrorHandler("Course not found", 404));
       }
 
-      const review = course?.reviews.find((item: any) =>
-        item._id.equals(reviewId)
+      const review = course?.reviews?.find(
+        (item: any) => item._id.toString() === reviewId
       );
+
       if (!review) {
         return next(new ErrorHandler("Review not found", 404));
       }
@@ -461,7 +466,9 @@ export const deleteCourse = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { id } = req.params;
+
       const course = await courseModel.findById(id);
+
       if (!course) {
         return next(new ErrorHandler("Course not found", 404));
       }
