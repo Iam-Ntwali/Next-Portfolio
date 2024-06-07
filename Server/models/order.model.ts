@@ -1,5 +1,3 @@
-import { timeStamp } from "console";
-import { Mode } from "fs";
 import mongoose, { Document, Model, Schema } from "mongoose";
 
 export interface IOrder extends Document {
