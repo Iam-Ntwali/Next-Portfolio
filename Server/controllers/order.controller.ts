@@ -1,20 +1,22 @@
 import { Request, Response, NextFunction } from "express";
 import { catchAsyncError } from "../middleware/catchAsyncErrors";
 import ErrorHandler from "../utils/ErrorHandler";
-import OrderModel, { IOrder } from "../models/order.model";
+import { IOrder } from "../models/order.model";
 import userModel from "../models/user.model";
-import courseModel from "../models/course.model";
+import courseModel, { ICourse } from "../models/course.model";
 import path from "path";
 import ejs from "ejs";
 import sendMail from "../utils/sendMail";
 import NotificationModel from "../models/notification.model";
 import { getAllOrdersService, newOrder } from "../services/order.service";
+import { redis } from "../utils/redis";
 
 // create a new order
 export const createOrder = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { courseId, payment_info } = req.body as IOrder;
+
       const user = await userModel.findById(req.user?._id);
 
       const courseExistsByInUser = user?.courses.some(
@@ -26,7 +28,8 @@ export const createOrder = catchAsyncError(
         );
       }
 
-      const course = await courseModel.findById(courseId);
+      const course: ICourse | null = await courseModel.findById(courseId);
+
       if (!course) {
         return next(new ErrorHandler("Course not found", 404));
       }
@@ -71,6 +74,8 @@ export const createOrder = catchAsyncError(
       }
 
       user?.courses.push(course?._id); // add new ordered course to the user's courses array
+
+      await redis.set(req.user?._id, JSON.stringify(user));
 
       await user?.save(); // save user data to database
 
