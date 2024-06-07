@@ -30,14 +30,14 @@ userRouter.post("/login", loginUser);
 // Logout user
 userRouter.get("/logout", isAuthenticated, logoutUser);
 
-// Refresh access token
-userRouter.get("/refresh", updateAccessToken);
-
-// Social auth login
-userRouter.post("/social-auth", socialAuth);
+// Refresh token
+userRouter.get("/refresh", isAuthenticated, updateAccessToken);
 
 // Get user info
 userRouter.get("/user-info", isAuthenticated, getUserInfo);
+
+// Social auth login
+userRouter.post("/social-auth", socialAuth);
 
 // Update user info
 userRouter.put("/update-user-info", isAuthenticated, updateUserInfo);
