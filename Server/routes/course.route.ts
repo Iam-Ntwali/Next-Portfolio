@@ -40,6 +40,14 @@ courseRouter.get("/get-course/:id", getSingleCourse);
 // Get all courses -- without purchase
 courseRouter.get("/get-courses", getAllCourses);
 
+// Get all course in the database
+courseRouter.get(
+  "/get-all-courses",
+  isAuthenticated,
+  authorizeRoles("admin"),
+  getAllCoursesForAdmin
+);
+
 // Get users purchased courses
 courseRouter.get("/get-course-content/:id", isAuthenticated, getCourseByUser);
 
@@ -58,14 +66,6 @@ courseRouter.put(
   isAuthenticated,
   authorizeRoles("admin"),
   addReplyToReview
-);
-
-// Get all course in the database
-courseRouter.get(
-  "/get-all-courses",
-  isAuthenticated,
-  authorizeRoles("admin"),
-  getAllCoursesForAdmin
 );
 
 // Secure vids routes
