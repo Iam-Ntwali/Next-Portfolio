@@ -60,6 +60,7 @@ export const registrationUser = catchAsyncError(
           template: "activation-mail.ejs",
           data,
         });
+
         // response email activation
         res.status(201).json({
           success: true,
@@ -124,7 +125,6 @@ export const activateUser = catchAsyncError(
 
       const existUser = await userModel.findOne({ email }); // check if user exists
       if (existUser) {
-        // if user exists
         return next(new ErrorHandler("Email already exist", 400));
       }
 
@@ -132,6 +132,7 @@ export const activateUser = catchAsyncError(
 
       res.status(201).json({
         success: true,
+        message: "Account activated successfully",
       });
     } catch (err: any) {
       return next(new ErrorHandler(err.message, 400));
@@ -148,6 +149,7 @@ export const loginUser = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { email, password } = req.body as ILoginRequest;
+
       if (!email || !password) {
         return next(new ErrorHandler("Please enter email and password", 400));
       }
@@ -180,7 +182,7 @@ export const logoutUser = catchAsyncError(
 
       res.status(200).json({
         success: true,
-        message: "User logged out successfully",
+        message: "Logged out successfully",
       });
     } catch (err: any) {
       return next(new ErrorHandler(err.message, 400));
@@ -200,13 +202,17 @@ export const updateAccessToken = catchAsyncError(
       ) as JwtPayload;
 
       const message = "Couldn't refresh token";
+
       if (!decoded) {
         return next(new ErrorHandler(message, 400));
       }
 
       const session = await redis.get(decoded.id as string);
+
       if (!session) {
-        return next(new ErrorHandler(message, 400));
+        return next(
+          new ErrorHandler("Please login for access this resources!", 400)
+        );
       }
 
       const user = JSON.parse(session);
