@@ -1,15 +1,15 @@
 import { Document, Schema, model } from "mongoose";
 
-interface Faq extends Document {
+export interface Faq extends Document {
   question: string;
   answer: string;
 }
 
-interface Category extends Document {
+export interface Category extends Document {
   title: string;
 }
 
-interface BannerImage extends Document {
+export interface BannerImage extends Document {
   public_id: string;
   url: string;
 }
