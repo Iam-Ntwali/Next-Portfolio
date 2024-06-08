@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState } from "react";
 import { styles } from "../../../../app/styles/style";
 import Image from "next/image";
+import { useGetHeroDataQuery } from "../../../../redux/features/layout/layoutApi";
 
 type Props = {
   courseInfo: any;
@@ -16,6 +17,14 @@ const CourseInformation: FC<Props> = ({
   setActive,
 }) => {
   const [dragging, setDragging] = useState(false);
+  const { data } = useGetHeroDataQuery("Categories", {});
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    if (data) {
+      setCategories(data.layout.categories);
+    }
+  }, [data]);
 
   // Handle file submission
   const handleSubmit = (e: any) => {
@@ -177,12 +186,12 @@ const CourseInformation: FC<Props> = ({
               }
             >
               <option value="">Select Category</option>
-              {/* {categories &&
+              {categories &&
                 categories.map((item: any) => (
                   <option value={item.title} key={item._id}>
                     {item.title}
                   </option>
-                ))} */}
+                ))}
             </select>
           </div>
         </div>
