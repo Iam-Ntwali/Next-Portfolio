@@ -4,7 +4,7 @@ import AdminProtected from "../../../app/hooks/adminProtected";
 import Heading from "../../../app/utils/Heading";
 import React from "react";
 import AdminSidebar from "../../components/Admin/sidebar/AdminSidebar";
-import AllUsers from "../../components/Admin/Users/AllUsers";
+import EditFaq from "../../components/Admin/Customization/EditFaq";
 
 type Props = {};
 
@@ -13,17 +13,18 @@ const page = (props: Props) => {
     <div>
       <AdminProtected>
         <Heading
-          title="All users info Dashboard"
+          title="Hero Customization"
           description="Welcome to the IBTC Online Learning System Platform"
           keywords="film making, photography, graphics design, software development"
         />
-        <div className="flex h-screen">
+        <div className="flex min-h-screen">
           <div className="1500px:w-[16%] w-1/5">
             <AdminSidebar />
           </div>
           <div className="w-[85%]">
             <DashboardHero />
-            <AllUsers />
+            <EditFaq />
+            <br />
           </div>
         </div>
       </AdminProtected>

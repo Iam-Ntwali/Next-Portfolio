@@ -1,5 +1,3 @@
-import { title } from "process";
-
 export const styles = {
   title:
     "text-[21px] text-black dark:text-white font-[500] font-Poppins text-center py-2",

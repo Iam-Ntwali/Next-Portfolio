@@ -13,7 +13,7 @@ const Page: FC<Props> = (props) => {
   return (
     <div>
       <Heading
-        title="IBTC E-Learning System App"
+        title="Home - IBTC E-Learning"
         description="Welcome to the IBTC Online Learning System Platform"
         keywords="film making, photography, graphics design, software development"
       />

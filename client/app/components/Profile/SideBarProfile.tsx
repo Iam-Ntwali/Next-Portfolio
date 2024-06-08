@@ -23,7 +23,7 @@ const SideBarProfile: FC<Props> = ({
   setActive,
   logOutHandler,
 }) => {
-  console.log("this is the role", user);
+  // console.log("this is the role", user);
   return (
     // Profile sidebar
     <div className="w-full">

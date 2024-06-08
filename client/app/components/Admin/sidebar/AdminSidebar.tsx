@@ -180,7 +180,7 @@ const AdminSidebar = () => {
             <Item
               title="Dashboard"
               to="/admin"
-              icon={<HomeOutlinedIcon className="text-[#f47400]" />}
+              icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
