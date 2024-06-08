@@ -1,11 +1,24 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { BiSearch } from "react-icons/bi";
+import { useGetHeroDataQuery } from "@/redux/features/layout/layoutApi";
+import { useRouter } from "next/router";
 
 type Props = {};
 
 const Hero: FC<Props> = (props) => {
+  const { data, isLoading } = useGetHeroDataQuery("Banner", {});
+  const [search, setSearch] = useState("");
+  // const router = useRouter();
+
+  // const handleSearch = () => {
+  //   if (search === "") {
+  //     return;
+  //   } else {
+  //     router.push(`/courses?title=${search}`);
+  //   }
+  // };
   return (
     <div className="w-full 1000px:flex items-center">
       <div className="absolute top-[100px] 1000px:top-[unset] 1500px:h-[700px] 1500px:w-[700px] 1100px:h-[600px] 1100px:w-[600px] h-[40vh] left-5 w-[40vh] hero_animation rounded-[50%] 1100px:left-8 1500px:left-14"></div>
