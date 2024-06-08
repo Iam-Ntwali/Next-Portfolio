@@ -5,7 +5,7 @@ import { useTheme } from "next-themes";
 import { useGetAllCoursesQuery } from "@/redux/features/courses/coursesApi";
 import Loader from "../../Loader/Loader";
 import { format } from "timeago.js";
-// import { useGetAllOrdersQuery } from "@/redux/features/orders/ordersApi";
+import { useGetAllOrdersQuery } from "../../../../redux/features/orders/ordersApi";
 import { useGetAllUsersQuery } from "@/redux/features/user/userApi";
 import { AiOutlineMail } from "react-icons/ai";
 
