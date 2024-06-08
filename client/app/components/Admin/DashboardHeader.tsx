@@ -8,7 +8,7 @@ import React, { FC, useEffect, useState } from "react";
 import { IoMdNotificationsOutline } from "react-icons/io";
 // import socketIO from "socket.io-client";
 // import { format } from "timeago.js";
-const ENDPOINT = process.env.NEXT_PUBLIC_SOCKET_SERVER_URI || "";
+// const ENDPOINT = process.env.NEXT_PUBLIC_SOCKET_SERVER_URI || "";
 // const socketId = socketIO(ENDPOINT, { transports: ["websocket"] });
 
 type Props = {
@@ -23,12 +23,12 @@ const DashboardHeader: FC<Props> = ({ open, setOpen }) => {
   // const [updateNotificationStatus, { isSuccess }] =
   //   useUpdateNotificationStatusMutation();
   const [notifications, setNotifications] = useState<any>([]);
-  const [audio] = useState<any>(
-    typeof window !== "undefined" &&
-      new Audio(
-        "https://res.cloudinary.com/damk25wo5/video/upload/v1693465789/notification_vcetjn.mp3"
-      )
-  );
+  // const [audio] = useState<any>(
+  //   typeof window !== "undefined" &&
+  //     new Audio(
+  //       "https://res.cloudinary.com/damk25wo5/video/upload/v1693465789/notification_vcetjn.mp3"
+  //     )
+  // );
 
   // const playNotificationSound = () => {
   //   audio.play();
