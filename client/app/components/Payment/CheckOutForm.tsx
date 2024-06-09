@@ -47,23 +47,24 @@ const CheckOutForm = ({ data, user, refetch }: Props) => {
     }
   };
 
-  // useEffect(() => {
-  //   if (orderData) {
-  //     refetch();
-  //     socketId.emit("notification", {
-  //       title: "New Order",
-  //       message: `You have a new order from ${data.name}`,
-  //       userId: user._id,
-  //     });
-  //     redirect(`/course-access/${data._id}`);
-  //   }
-  //   if (error) {
-  //     if ("data" in error) {
-  //       const errorMessage = error as any;
-  //       toast.error(errorMessage.data.message);
-  //     }
-  //   }
-  // }, [orderData, error]);
+  useEffect(() => {
+    if (orderData) {
+      refetch();
+      // socketId.emit("notification", {
+      //   title: "New Order",
+      //   message: `You have a new order from ${data.name}`,
+      //   userId: user._id,
+      // });
+      redirect(`/course-access/${data._id}`);
+    }
+    if (error) {
+      if ("data" in error) {
+        const errorMessage = error as any;
+        toast.error(errorMessage.data.message);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [orderData, error]);
 
   return (
     <form id="payment-form" onSubmit={handleSubmit}>
