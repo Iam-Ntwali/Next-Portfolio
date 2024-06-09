@@ -152,7 +152,7 @@ const CourseDetails = ({
                     ? Number.isInteger(data.ratings)
                       ? data.ratings.toFixed(1)
                       : data.ratings.toFixed(2)
-                    : "N/A"}{" "}
+                    : "n/a"}{" "}
                   Course Rating • {data?.reviews?.length} Reviews
                 </h5>
               </div>
@@ -282,6 +282,21 @@ const CourseDetails = ({
           </div>
         </div>
       </div>
+      <>
+        {open && (
+          <div className="w-full h-screen bg-[#00000036] fixed top-0 left-0 z-50 flex items-center justify-center">
+            <div className="w-[500px] min-h-[500px] bg-white rounded-xl shadow p-3">
+              <div className="w-full flex justify-end">
+                <IoCloseOutline
+                  size={40}
+                  className="text-black cursor-pointer"
+                  onClick={() => setOpen(false)}
+                />
+              </div>
+            </div>
+          </div>
+        )}
+      </>
     </div>
   );
 };
