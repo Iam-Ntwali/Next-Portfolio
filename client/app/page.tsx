@@ -17,7 +17,7 @@ const Page: FC<Props> = (props) => {
   return (
     <div>
       <Heading
-        title="Home - IBTC E-Learning"
+        title="IBTC E-Learning System"
         description="Welcome to the IBTC Online Learning System Platform"
         keywords="film making, photography, graphics design, software development"
       />
