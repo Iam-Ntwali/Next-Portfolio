@@ -45,7 +45,7 @@ export const ordersApi = apiSlice.injectEndpoints({
 
 export const {
   useGetAllOrdersQuery,
-  // useGetStripePublishableKeyQuery,
-  // useCreatePaymentIntentMutation,
+  useGetStripePublishableKeyQuery,
+  useCreatePaymentIntentMutation,
   useCreateOrderMutation,
 } = ordersApi;
