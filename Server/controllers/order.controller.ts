@@ -10,12 +10,28 @@ import sendMail from "../utils/sendMail";
 import NotificationModel from "../models/notification.model";
 import { getAllOrdersService, newOrder } from "../services/order.service";
 import { redis } from "../utils/redis";
+require("dotenv").config();
+
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 // create a new order
 export const createOrder = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { courseId, payment_info } = req.body as IOrder;
+
+      if (payment_info) {
+        if ("id" in payment_info) {
+          const paymentIntentId = payment_info.id;
+          const paymentIntent = await stripe.paymentIntents.retrieve(
+            paymentIntentId
+          );
+
+          if (paymentIntent.status !== "succeeded") {
+            return next(new ErrorHandler("Payment not authorized!", 400));
+          }
+        }
+      }
 
       const user = await userModel.findById(req.user?._id);
 
@@ -125,7 +141,7 @@ export const newPayment = catchAsyncError(
         amount: req.body.amount,
         currency: "USD",
         metadata: {
-          company: "E-Learning",
+          company: "IBTC",
         },
         automatic_payment_methods: {
           enabled: true,
