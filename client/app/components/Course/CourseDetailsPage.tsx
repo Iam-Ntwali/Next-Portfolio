@@ -4,7 +4,7 @@ import Loader from "../Loader/Loader";
 import Heading from "../../../app/utils/Heading";
 import Header from "../Header";
 import Footer from "../Footer";
-// import CourseDetails from "./CourseDetails";
+import CourseDetails from "./CourseDetails";
 // import {
 //   useCreatePaymentIntentMutation,
 //   useGetStripePublishablekeyQuery,
@@ -62,15 +62,15 @@ const CourseDetailsPage = ({ id }: Props) => {
             setOpen={setOpen}
             activeItem={1}
           />
-          {/* {stripePromise && (
-            <CourseDetails
-              data={data.course}
-              stripePromise={stripePromise}
-              clientSecret={clientSecret}
-              setRoute={setRoute}
-              setOpen={setOpen}
-            />
-          )} */}
+          {/* {stripePromise && ( */}
+          <CourseDetails
+            data={data.course}
+            // stripePromise={stripePromise}
+            // clientSecret={clientSecret}
+            setRoute={setRoute}
+            setOpen={setOpen}
+          />
+          {/* )} */}
           <Footer />
         </div>
       )}
