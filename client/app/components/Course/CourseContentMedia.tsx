@@ -1,12 +1,12 @@
-import { styles } from "@/app/styles/style";
-import CoursePlayer from "@/app/utils/CoursePlayer";
+import { styles } from "../../../app/styles/style";
+import CoursePlayer from "../../../app/utils/CoursePlayer";
 import {
   useAddAnswerInQuestionMutation,
   useAddNewQuestionMutation,
   useAddReplyInReviewMutation,
   useAddReviewInCourseMutation,
   useGetCourseDetailsQuery,
-} from "@/redux/features/courses/coursesApi";
+} from "../../../redux/features/courses/coursesApi";
 import Image from "next/image";
 import { format } from "timeago.js";
 import React, { useEffect, useState } from "react";
@@ -19,7 +19,7 @@ import {
 } from "react-icons/ai";
 import { BiMessage } from "react-icons/bi";
 import { VscVerifiedFilled } from "react-icons/vsc";
-import Ratings from "@/app/utils/Ratings";
+import Ratings from "../../../app/utils/Ratings";
 // import socketIO from "socket.io-client";
 const ENDPOINT = process.env.NEXT_PUBLIC_SOCKET_SERVER_URI || "";
 // const socketId = socketIO(ENDPOINT, { transports: ["websocket"] });
@@ -67,6 +67,7 @@ const CourseContentMedia = ({
       isLoading: answerCreationLoading,
     },
   ] = useAddAnswerInQuestionMutation();
+
   const course = courseData?.course;
   const [
     addReviewInCourse,
@@ -201,11 +202,15 @@ const CourseContentMedia = ({
 
   return (
     <div className="w-[95%] 800px:w-[86%] py-4 m-auto">
+      {/* Video player */}
       <CoursePlayer
         title={data[activeVideo]?.title}
         videoUrl={data[activeVideo]?.videoUrl}
       />
+
+      {/* Buttons */}
       <div className="w-full flex items-center justify-between my-3">
+        {/* Previous btn */}
         <div
           className={`${
             styles.button
@@ -219,6 +224,7 @@ const CourseContentMedia = ({
           <AiOutlineArrowLeft className="mr-2" />
           Prev Lesson
         </div>
+        {/* Next btn */}
         <div
           className={`${
             styles.button
@@ -244,7 +250,7 @@ const CourseContentMedia = ({
       </h1>
       <br />
 
-      {/* Active bar */}
+      {/* Active bar  title */}
       <div className="w-full p-4 flex items-center justify-between bg-slate-500 bg-opacity-20 backdrop-blur shadow-[bg-slate-700] rounded shadow-inner">
         {["Overview", "Resources", "Q&A", "Reviews"].map((text, index) => (
           <h5
@@ -261,12 +267,15 @@ const CourseContentMedia = ({
         ))}
       </div>
       <br />
+
+      {/* Active bar content/ Overview tab  */}
       {activeBar === 0 && (
         <p className="text-[18px] whitespace-pre-line mb-3 dark:text-white text-black">
           {data[activeVideo]?.description}
         </p>
       )}
 
+      {/*Active bar content/ Resources */}
       {activeBar === 1 && (
         <div>
           {data[activeVideo]?.links.map((item: any, index: number) => (
@@ -285,6 +294,7 @@ const CourseContentMedia = ({
         </div>
       )}
 
+      {/* Active bar content/ QA*/}
       {activeBar === 2 && (
         <>
           <div className="flex w-full">
@@ -326,7 +336,7 @@ const CourseContentMedia = ({
           <br />
           <div className="w-full h-[1px] bg-[#ffffff3b]"></div>
           <div>
-            <CommentReply
+            {/* <CommentReply
               data={data}
               activeVideo={activeVideo}
               answer={answer}
@@ -336,11 +346,12 @@ const CourseContentMedia = ({
               questionId={questionId}
               setQuestionId={setQuestionId}
               answerCreationLoading={answerCreationLoading}
-            />
+            /> */}
           </div>
         </>
       )}
 
+      {/* Active bar content/ Reviews */}
       {activeBar === 3 && (
         <div className="w-full">
           <>
@@ -551,7 +562,7 @@ const CourseContentMedia = ({
 //   );
 // };
 
-// const CommentItem = ({
+const CommentItem = ({
   questionId,
   setQuestionId,
   item,
