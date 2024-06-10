@@ -336,7 +336,7 @@ const CourseContentMedia = ({
           <br />
           <div className="w-full h-[1px] bg-[#ffffff3b]"></div>
           <div>
-            {/* <CommentReply
+            <CommentReply
               data={data}
               activeVideo={activeVideo}
               answer={answer}
@@ -346,7 +346,7 @@ const CourseContentMedia = ({
               questionId={questionId}
               setQuestionId={setQuestionId}
               answerCreationLoading={answerCreationLoading}
-            /> */}
+            />
           </div>
         </>
       )}
@@ -529,38 +529,38 @@ const CourseContentMedia = ({
   );
 };
 
-// const CommentReply = ({
-//   data,
-//   activeVideo,
-//   answer,
-//   setAnswer,
-//   handleAnswerSubmit,
-//   questionId,
-//   setQuestionId,
-//   answerCreationLoading,
-// }: any) => {
-//   return (
-//     <>
-//       <div className="w-full my-3">
-//         {data[activeVideo].questions.map((item: any, index: any) => (
-//           <CommentItem
-//             key={index}
-//             data={data}
-//             activeVideo={activeVideo}
-//             item={item}
-//             index={index}
-//             answer={answer}
-//             setAnswer={setAnswer}
-//             questionId={questionId}
-//             setQuestionId={setQuestionId}
-//             handleAnswerSubmit={handleAnswerSubmit}
-//             answerCreationLoading={answerCreationLoading}
-//           />
-//         ))}
-//       </div>
-//     </>
-//   );
-// };
+const CommentReply = ({
+  data,
+  activeVideo,
+  answer,
+  setAnswer,
+  handleAnswerSubmit,
+  questionId,
+  setQuestionId,
+  answerCreationLoading,
+}: any) => {
+  return (
+    <>
+      <div className="w-full my-3">
+        {data[activeVideo].questions.map((item: any, index: any) => (
+          <CommentItem
+            key={index}
+            data={data}
+            activeVideo={activeVideo}
+            item={item}
+            index={index}
+            answer={answer}
+            setAnswer={setAnswer}
+            questionId={questionId}
+            setQuestionId={setQuestionId}
+            handleAnswerSubmit={handleAnswerSubmit}
+            answerCreationLoading={answerCreationLoading}
+          />
+        ))}
+      </div>
+    </>
+  );
+};
 
 const CommentItem = ({
   questionId,
@@ -571,11 +571,12 @@ const CommentItem = ({
   handleAnswerSubmit,
   answerCreationLoading,
 }: any) => {
-  const [replyActive, setreplyActive] = useState(false);
+  const [replyActive, setReplyActive] = useState(false);
   return (
     <>
       <div className="my-4">
         <div className="flex mb-2">
+          {/* user image */}
           <div>
             <Image
               src={
@@ -589,7 +590,9 @@ const CommentItem = ({
               className="w-[50px] h-[50px] rounded-full object-cover"
             />
           </div>
+          {/* Question */}
           <div className="pl-3 dark:text-white text-black">
+            {/* Name */}
             <h5 className="text-[20px]">{item?.user.name}</h5>
             <p>{item?.question}</p>
             <small className="text-[#000000b8] dark:text-[#ffffff83]">
@@ -597,11 +600,13 @@ const CommentItem = ({
             </small>
           </div>
         </div>
+
+        {/* Added reply */}
         <div className="w-full flex">
           <span
             className="800px:pl-16 text-[#000000b8] dark:text-[#ffffff83] cursor-pointer mr-2"
             onClick={() => {
-              setreplyActive(!replyActive);
+              setReplyActive(!replyActive);
               setQuestionId(item._id);
             }}
           >
@@ -620,6 +625,7 @@ const CommentItem = ({
           </span>
         </div>
 
+        {/* Reply on user question */}
         {replyActive && questionId === item._id && (
           <>
             {item.questionReplies.map((item: any) => (
@@ -627,6 +633,7 @@ const CommentItem = ({
                 className="w-full flex 800px:ml-16 my-5 text-black dark:text-white"
                 key={item._id}
               >
+                {/* Reply user Avatar */}
                 <div>
                   <Image
                     src={
@@ -640,11 +647,12 @@ const CommentItem = ({
                     className="w-[50px] h-[50px] rounded-full object-cover"
                   />
                 </div>
+                {/* Reply user info */}
                 <div className="pl-3">
                   <div className="flex items-center">
                     <h5 className="text-[20px]">{item.user.name}</h5>{" "}
                     {item.user.role === "admin" && (
-                      <VscVerifiedFilled className="text-[#0095F6] ml-2 text-[20px]" />
+                      <VscVerifiedFilled className="text-[#f47400] ml-2 text-[20px]" />
                     )}
                   </div>
                   <p>{item.answer}</p>
