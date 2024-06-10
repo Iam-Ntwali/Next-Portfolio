@@ -4,7 +4,7 @@ import Heading from "../../../app/utils/Heading";
 import Header from "../Header";
 import { useGetCourseContentQuery } from "../../../redux/features/courses/coursesApi";
 import CourseContentList from "./CourseContentList";
-// import CourseContentMedia from "./CourseContentMedia";
+import CourseContentMedia from "./CourseContentMedia";
 
 type Props = {
   id: string;
@@ -43,14 +43,14 @@ const CourseContent = ({ id, user }: Props) => {
               keywords={data[activeVideo]?.tags}
             />
             <div className="col-span-7">
-              {/* <CourseContentMedia
+              <CourseContentMedia
                 data={data}
                 id={id}
                 activeVideo={activeVideo}
                 setActiveVideo={setActiveVideo}
                 user={user}
                 refetch={refetch}
-              /> */}
+              />
             </div>
             <div className="hidden 800px:block 800px:col-span-3">
               <CourseContentList
