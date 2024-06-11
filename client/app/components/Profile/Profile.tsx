@@ -5,8 +5,8 @@ import { useLogOutQuery } from "../../../redux/features/auth/authApi";
 import { signOut } from "next-auth/react";
 import ProfileInfo from "./ProfileInfo";
 import ChangePassword from "./ChangePassword";
-//import CourseCard from "../Course/CourseCard";
-// import { useGetUsersAllCoursesQuery } from "@/redux/features/courses/coursesApi";
+import CourseCard from "../Course/CourseCard";
+import { useGetUsersAllCoursesQuery } from "../../../redux/features/courses/coursesApi";
 
 type Props = {
   user: any;
@@ -16,8 +16,8 @@ const Profile: FC<Props> = ({ user }) => {
   const [scroll, setScroll] = useState(false);
   const [avatar, setAvatar] = useState(null);
   const [logout, setLogout] = useState(false);
-  // const [courses, setCourses] = useState([]);
-  // const { data, isLoading } = useGetUsersAllCoursesQuery(undefined, {});
+  const [courses, setCourses] = useState([]);
+  const { data, isLoading } = useGetUsersAllCoursesQuery(undefined, {});
 
   const {} = useLogOutQuery(undefined, {
     skip: !logout ? true : false,
@@ -40,16 +40,17 @@ const Profile: FC<Props> = ({ user }) => {
     });
   }
 
-  // useEffect(() => {
-  //   if (data) {
-  //     const filteredCourses = user.courses
-  //       .map((userCourse: any) =>
-  //         data.courses.find((course: any) => course._id === userCourse._id)
-  //       )
-  //       .filter((course: any) => course !== undefined);
-  //     setCourses(filteredCourses);
-  //   }
-  // }, [data]);
+  useEffect(() => {
+    if (data) {
+      const filteredCourses = user.courses
+        .map((userCourse: any) =>
+          data.courses.find((course: any) => course._id === userCourse._id)
+        )
+        .filter((course: any) => course !== undefined);
+      setCourses(filteredCourses);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
 
   return (
     <div className="w-[85%] flex mx-auto">
@@ -78,7 +79,7 @@ const Profile: FC<Props> = ({ user }) => {
         </div>
       )}
 
-      {/* {active === 3 && (
+      {active === 3 && (
         <div className="w-full pl-7 px-2 800px:px-10 800px:pl-8 mt-[80px]">
           <div className="grid grid-cols-1 gap-[20px] md:grid-cols-2 md:gap-[25px] lg:grid-cols-3 lg:gap-[25px] 1500px:grid-cols-4 1500px:gap-[35px] mb-12 border-0">
             {courses &&
@@ -92,7 +93,7 @@ const Profile: FC<Props> = ({ user }) => {
             </h1>
           )}
         </div>
-      )} */}
+      )}
     </div>
   );
 };
