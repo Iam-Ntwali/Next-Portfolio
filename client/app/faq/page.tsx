@@ -3,19 +3,19 @@ import React, { useState } from "react";
 import Heading from "../utils/Heading";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import Policy from "./Policy";
+import FAQ from "../components/Route/FAQ";
 
 type Props = {};
 
 const Page = (props: Props) => {
   const [open, setOpen] = useState(false);
-  const [activeItem, setActiveItem] = useState(3);
+  const [activeItem, setActiveItem] = useState(4);
   const [route, setRoute] = useState("Login");
 
   return (
     <div className="min-h-screen">
       <Heading
-        title="No content- IBTC E-Learning System"
+        title="Contact us - IBTC E-Learning System"
         description="Welcome to the IBTC Online Learning System Platform"
         keywords="film making, photography, graphics design, software development"
       />
@@ -26,7 +26,8 @@ const Page = (props: Props) => {
         setRoute={setRoute}
         route={route}
       />
-      <Policy />
+      <br />
+      <FAQ />
       <Footer />
     </div>
   );
