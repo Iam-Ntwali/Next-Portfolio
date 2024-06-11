@@ -1,8 +1,8 @@
+import React, { useEffect, useState } from "react";
 import { styles } from "../../../app/styles/style";
 import CoursePlayer from "../../../app/utils/CoursePlayer";
 import Ratings from "../../../app/utils/Ratings";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
 import { IoCheckmarkDoneOutline, IoCloseOutline } from "react-icons/io5";
 import { format } from "timeago.js";
 import CourseContentList from "../Course/CourseContentList";
@@ -31,9 +31,9 @@ const CourseDetails = ({
   const [user, setUser] = useState<any>();
   const [open, setOpen] = useState(false);
 
-  // useEffect(() => {
-  //   setUser(userData?.user);
-  // }, [userData]);
+  useEffect(() => {
+    setUser(userData?.user);
+  }, [userData]);
 
   const discountPercentage =
     ((data?.estimatedPrice - data.price) / data?.estimatedPrice) * 100;

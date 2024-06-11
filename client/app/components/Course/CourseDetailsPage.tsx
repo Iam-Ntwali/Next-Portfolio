@@ -1,4 +1,3 @@
-import { useGetCourseDetailsQuery } from "../../../redux/features/courses/coursesApi";
 import React, { useEffect, useState } from "react";
 import Loader from "../Loader/Loader";
 import Heading from "../../../app/utils/Heading";
@@ -9,8 +8,9 @@ import {
   useCreatePaymentIntentMutation,
   useGetStripePublishableKeyQuery,
 } from "../../../redux/features/orders/ordersApi";
+import { useGetCourseDetailsQuery } from "../../../redux/features/courses/coursesApi";
+import { useLoadUserQuery } from "../../../redux/features/api/apiSlice";
 import { loadStripe } from "@stripe/stripe-js";
-import { useLoadUserQuery } from "@/redux/features/api/apiSlice";
 
 type Props = {
   id: string;
