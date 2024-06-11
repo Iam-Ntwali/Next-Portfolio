@@ -103,75 +103,76 @@ const CourseContentMedia = ({
     }
   };
 
-  // useEffect(() => {
-  //   if (isSuccess) {
-  //     setQuestion("");
-  //     refetch();
-  //     socketId.emit("notification", {
-  //       title: `New Question Received`,
-  //       message: `You have a new question in ${data[activeVideo].title}`,
-  //       userId: user._id,
-  //     });
-  //   }
-  //   if (answerSuccess) {
-  //     setAnswer("");
-  //     refetch();
-  //     if (user.role !== "admin") {
-  //       socketId.emit("notification", {
-  //         title: `New Reply Received`,
-  //         message: `You have a new question in ${data[activeVideo].title}`,
-  //         userId: user._id,
-  //       });
-  //     }
-  //   }
-  //   if (error) {
-  //     if ("data" in error) {
-  //       const errorMessage = error as any;
-  //       toast.error(errorMessage.data.message);
-  //     }
-  //   }
-  //   if (answerError) {
-  //     if ("data" in answerError) {
-  //       const errorMessage = error as any;
-  //       toast.error(errorMessage.data.message);
-  //     }
-  //   }
-  //   if (reviewSuccess) {
-  //     setReview("");
-  //     setRating(1);
-  //     courseRefetch();
-  //     socketId.emit("notification", {
-  //       title: `New Question Received`,
-  //       message: `You have a new question in ${data[activeVideo].title}`,
-  //       userId: user._id,
-  //     });
-  //   }
-  //   if (reviewError) {
-  //     if ("data" in reviewError) {
-  //       const errorMessage = error as any;
-  //       toast.error(errorMessage.data.message);
-  //     }
-  //   }
-  //   if (replySuccess) {
-  //     setReply("");
-  //     courseRefetch();
-  //   }
-  //   if (replyError) {
-  //     if ("data" in replyError) {
-  //       const errorMessage = error as any;
-  //       toast.error(errorMessage.data.message);
-  //     }
-  //   }
-  // }, [
-  //   isSuccess,
-  //   error,
-  //   answerSuccess,
-  //   answerError,
-  //   reviewSuccess,
-  //   reviewError,
-  //   replySuccess,
-  //   replyError,
-  // ]);
+  useEffect(() => {
+    if (isSuccess) {
+      setQuestion("");
+      refetch();
+      // socketId.emit("notification", {
+      //   title: `New Question Received`,
+      //   message: `You have a new question in ${data[activeVideo].title}`,
+      //   userId: user._id,
+      // });
+    }
+    if (answerSuccess) {
+      setAnswer("");
+      refetch();
+      // if (user.role !== "admin") {
+      //   socketId.emit("notification", {
+      //     title: `New Reply Received`,
+      //     message: `You have a new question in ${data[activeVideo].title}`,
+      //     userId: user._id,
+      //   });
+      // }
+    }
+    if (error) {
+      if ("data" in error) {
+        const errorMessage = error as any;
+        toast.error(errorMessage.data.message);
+      }
+    }
+    if (answerError) {
+      if ("data" in answerError) {
+        const errorMessage = error as any;
+        toast.error(errorMessage.data.message);
+      }
+    }
+    if (reviewSuccess) {
+      setReview("");
+      setRating(1);
+      courseRefetch();
+      // socketId.emit("notification", {
+      //   title: `New Question Received`,
+      //   message: `You have a new question in ${data[activeVideo].title}`,
+      //   userId: user._id,
+      // });
+    }
+    if (reviewError) {
+      if ("data" in reviewError) {
+        const errorMessage = error as any;
+        toast.error(errorMessage.data.message);
+      }
+    }
+    if (replySuccess) {
+      setReply("");
+      courseRefetch();
+    }
+    if (replyError) {
+      if ("data" in replyError) {
+        const errorMessage = error as any;
+        toast.error(errorMessage.data.message);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    isSuccess,
+    error,
+    answerSuccess,
+    answerError,
+    reviewSuccess,
+    reviewError,
+    replySuccess,
+    replyError,
+  ]);
 
   const handleAnswerSubmit = () => {
     addAnswerInQuestion({
