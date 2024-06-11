@@ -15,7 +15,7 @@ const Page = (props: Props) => {
   return (
     <div>
       <Heading
-        title="IBTC E-Learning System"
+        title="About - IBTC E-Learning System"
         description="Welcome to the IBTC Online Learning System Platform"
         keywords="film making, photography, graphics design, software development"
       />
