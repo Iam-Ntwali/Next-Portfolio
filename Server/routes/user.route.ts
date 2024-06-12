@@ -30,8 +30,8 @@ userRouter.post("/login", loginUser);
 // Logout user
 userRouter.get("/logout", isAuthenticated, logoutUser);
 
-// Refresh token
-userRouter.get("/refresh", isAuthenticated, updateAccessToken);
+// // Refresh token
+// userRouter.get("/refresh", isAuthenticated, updateAccessToken);
 
 // Get user info
 userRouter.get("/user-info", isAuthenticated, getUserInfo);
