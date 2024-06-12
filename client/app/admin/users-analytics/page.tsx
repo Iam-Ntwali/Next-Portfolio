@@ -11,7 +11,7 @@ const page = (props: Props) => {
   return (
     <div>
       <Heading
-        title="User Analytics"
+        title="User Analytics - Admin Dashboard"
         description="Welcome to the IBTC Online Learning System Platform"
         keywords="film making, photography, graphics design, software development"
       />

@@ -1,8 +1,8 @@
 "use client";
-import DashboardHero from "@/app/components/Admin/DashboardHero";
-import AdminProtected from "@/app/hooks/adminProtected";
-import Heading from "@/app/utils/Heading";
 import React from "react";
+import DashboardHero from "../../../app/components/Admin/DashboardHero";
+import AdminProtected from "../../../app/hooks/adminProtected";
+import Heading from "../../../app/utils/Heading";
 import AdminSidebar from "../../components/Admin/sidebar/AdminSidebar";
 import EditCategories from "../../components/Admin/Customization/EditCategories";
 
@@ -13,7 +13,7 @@ const page = (props: Props) => {
     <div>
       <AdminProtected>
         <Heading
-          title="Hero Customization"
+          title="Categories Customization - Admin Dashboard"
           description="Welcome to the IBTC Online Learning System Platform"
           keywords="film making, photography, graphics design, software development"
         />

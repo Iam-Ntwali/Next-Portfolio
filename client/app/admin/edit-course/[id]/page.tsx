@@ -13,7 +13,7 @@ const page = ({ params }: any) => {
   return (
     <div>
       <Heading
-        title="Edit Course - IBTC E-LMS"
+        title="Edit Course - Admin Dashboard"
         description="Welcome to the IBTC Online Learning System Platform"
         keywords="film making, photography, graphics design, software development"
       />
