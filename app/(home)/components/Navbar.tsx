@@ -23,15 +23,17 @@ export default function Navbar() {
   ];
   return (
     <div>
-      <nav className="py-10">
-        <h1>Iam Ntwali 👨🏾‍💻</h1>
+      <nav className="py-10 flex justify-between items-center">
+        <h1 className="text-2xl font-bold underline underline-offset-8 decoration-green-500 -rotate-2 select-none">
+          Iam Ntwali 👨🏾‍💻
+        </h1>
 
-        <div>
+        <div className="flex items-center gap-5">
           {socials.map((social, index) => {
             const Icon = social.Icon;
             return (
               <Link href={social.link} key={index} aria-label={social.label}>
-                <Icon />
+                <Icon className="h-5 w-5 hover:scale-125 transition-all" />
               </Link>
             );
           })}
