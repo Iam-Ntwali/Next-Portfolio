@@ -6,7 +6,7 @@ import { ThemeProvider } from "../components/theme-provider";
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Ntwali Pacifique 🇷🇼💻",
+  title: "Ntwali Pacifique 👨🏾‍💻🇷🇼",
   description:
     "Welcome to my portfolio website. I am a Tech and Web Developer based in Rwanda. I like building things that live on the Internet",
 };
