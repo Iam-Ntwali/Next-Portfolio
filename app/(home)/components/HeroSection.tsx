@@ -12,7 +12,7 @@ export default function HeroSection() {
         {/* Hero title */}
         <h1 className="text-4xl lg:text-7xl font-bold text-gray-400">
           Hello There! 👋,
-          <br /> {"I'm"}
+          <br /> {"I'm "}
           <span className="text-3xl lg:text-5xl underline underline-offset-8 decoration-green-500 text-white">
             Ntwali Pacifique
           </span>
