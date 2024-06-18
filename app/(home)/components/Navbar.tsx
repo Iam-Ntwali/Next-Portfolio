@@ -1,9 +1,9 @@
-import { link } from "fs";
-import Link from "next/link";
 import React from "react";
-import { SiGithub, SiLinkedin, SiX } from "react-icons/si";
+import Link from "next/link";
+import { SiGithub, SiInstagram, SiLinkedin, SiX } from "react-icons/si";
+import { cn } from "@/lib/utils";
 
-export default function Navbar() {
+export default function Navbar({ className }: { className?: string }) {
   const socials = [
     {
       link: "https://www.linkedin.com/in/ntwali-p/",
@@ -16,14 +16,14 @@ export default function Navbar() {
       Icon: SiGithub,
     },
     {
-      link: "https://www.linkedin.com/in/ntwali-p/",
-      label: "Twitter",
-      Icon: SiX,
+      link: "https://www.instagram.com/iam_ntwali",
+      label: "Instagram",
+      Icon: SiInstagram,
     },
   ];
   return (
     <div>
-      <nav className="py-10 flex justify-between items-center">
+      <nav className={cn("py-10 flex justify-between items-center", className)}>
         <h1 className="text-2xl font-bold underline underline-offset-8 decoration-green-500 -rotate-2 select-none">
           Iam Ntwali 👨🏾‍💻
         </h1>
@@ -32,16 +32,16 @@ export default function Navbar() {
           {socials.map((social, index) => {
             const Icon = social.Icon;
             return (
-              <Link href={social.link} key={index} aria-label={social.label}>
+              <Link
+                href={social.link}
+                key={index}
+                aria-label={social.label}
+                target="_blank"
+              >
                 <Icon className="h-5 w-5 hover:scale-125 transition-all" />
               </Link>
             );
           })}
-          {/* {socials.map(({ link, label, Icon }) => (
-            <a href={link} key={label}>
-              <Icon />
-            </a>
-          ))} */}
         </div>
       </nav>
     </div>
