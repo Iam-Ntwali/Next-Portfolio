@@ -3,13 +3,14 @@ import { SiNextdotjs, SiReactquery, SiTailwindcss } from "react-icons/si";
 import Title from "./Title";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { DirectionAwareHover } from "@/components/ui/direction-aware-hover";
 
 export default function Projects() {
   const projects = [
     {
       title: "Portfolio Website",
       tech: [SiNextdotjs, SiTailwindcss, SiReactquery],
-      cover: "/public/Project-Img1.png",
+      cover: "/Project-Img1.png",
       link: "https://github.com",
       github: "https://github.com",
       background: "bg-indigo-500",
@@ -17,7 +18,7 @@ export default function Projects() {
     {
       title: "Portfolio Website",
       tech: [SiNextdotjs, SiTailwindcss, SiReactquery],
-      cover: "/public/Project-Img1.png",
+      cover: "/Project-Img1.png",
       link: "https://github.com",
       github: "https://github.com",
       background: "bg-green-500",
@@ -25,15 +26,15 @@ export default function Projects() {
     {
       title: "Portfolio Website",
       tech: [SiNextdotjs, SiTailwindcss, SiReactquery],
-      cover: "/public/Project-Img1.png",
+      cover: "/Project-Img1.png",
       link: "https://github.com",
       github: "https://github.com",
-      background: "bg-crimson-500",
+      background: "bg-teal-500",
     },
     {
       title: "Portfolio Website",
       tech: [SiNextdotjs, SiTailwindcss, SiReactquery],
-      cover: "/public/Project-Img1.png",
+      cover: "/Project-Img1.png",
       link: "https://github.com",
       github: "https://github.com",
       background: "bg-blue-500",
@@ -47,12 +48,46 @@ export default function Projects() {
         className="flex flex-col items-center justify-center rotate-6"
       />
 
-      <div className="grid grid-cols-1 sm:grids-cols-2 pt-20">
+      <div className="grid grid-cols-1 sm:grid-cols-2 pt-20 gap-5">
         {projects.map((project, index) => {
           return (
-            <Link href={project.github} key={index}>
-              <div className={cn("p-5 rounded-md", project.background)}></div>
-            </Link>
+            <div key={index}>
+              <div className={cn("p-5 rounded-md", project.background)}>
+                <DirectionAwareHover
+                  imageUrl={project.cover}
+                  className="w-full space-y-5 cursor-pointer"
+                >
+                  <div className="space-y-5">
+                    <h1 className="text-xl font-bold">{project.title}</h1>
+                    <div className="flex items-center gap-5 justify-center">
+                      {project.tech.map((Icon, index) => {
+                        return <Icon className="w-8 h-8" key={index} />;
+                      })}
+                    </div>
+                    <div className="flex flex-row gap-2">
+                      <Link
+                        href={project.github}
+                        className={cn(
+                          "w-auto h-auto p-2 rounded-md hover:bg-red-500",
+                          project.background
+                        )}
+                      >
+                        Github
+                      </Link>
+                      <Link
+                        href={project.link}
+                        className={cn(
+                          "w-auto h-auto p-2 rounded-md hover:bg-red-500",
+                          project.background
+                        )}
+                      >
+                        Live
+                      </Link>
+                    </div>
+                  </div>
+                </DirectionAwareHover>
+              </div>
+            </div>
           );
         })}
       </div>
