@@ -6,9 +6,30 @@ import { ThemeProvider } from "../components/theme-provider";
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Ntwali Pacifique 👨🏾‍💻🇷🇼",
+  metadataBase: new URL("https://iamnntwali.me"),
+
+  title: "Pacifique Ntwali 🇷🇼",
+  authors: {
+    name: "Ntwali",
+  },
+
   description:
-    "Welcome to my portfolio website. I am a Tech and Web Developer based in Rwanda. I like building things that live on the Internet",
+    "I am a Tech and Web Developer based in Rwanda 🇷🇼, dedicated to crafting digital experiences that thrive on the internet 🙂",
+  openGraph: {
+    title: "Ntwali Portfolio Website",
+    description:
+      "I am a Tech and Web Developer based in Rwanda 🇷🇼, dedicated to crafting digital experiences that thrive on the internet. 🙂",
+    url: "https://iamntwali.me/",
+    siteName: "Daily Vote",
+    images: "/Project-Img1.png",
+    type: "website",
+  },
+  keywords: [
+    "portfolio",
+    "Pacifique ntwali",
+    "tech enthusiast",
+    "fullstack dev",
+  ],
 };
 
 export default function RootLayout({
