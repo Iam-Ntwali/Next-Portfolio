@@ -9,16 +9,19 @@ export default function Navbar({ className }: { className?: string }) {
       link: "https://www.linkedin.com/in/ntwali-p/",
       label: "LinkedIn",
       Icon: SiLinkedin,
+      color: "#0a66c2",
     },
     {
       link: "https://github.com/Iam-Ntwali",
       label: "Github",
       Icon: SiGithub,
+      color: "#ffffff",
     },
     {
       link: "https://www.instagram.com/iam_ntwali",
       label: "Instagram",
       Icon: SiInstagram,
+      color: "#c32aa3",
     },
   ];
   return (
@@ -38,7 +41,10 @@ export default function Navbar({ className }: { className?: string }) {
                 aria-label={social.label}
                 target="_blank"
               >
-                <Icon className="h-5 w-5 hover:scale-125 transition-all" />
+                <Icon
+                  color={social.color}
+                  className={`h-5 w-5 hover:scale-125 transition-all`}
+                />
               </Link>
             );
           })}
