@@ -11,16 +11,16 @@ export default function HeroSection() {
       <div className="space-y-10 text-center lg:text-left">
         {/* Hero title */}
         <h1 className="text-4xl lg:text-7xl font-bold text-gray-400">
-          Hello There! 👋,
+          Hello There!👋🏾,
           <br /> {"I'm "}
           <span className="text-3xl lg:text-5xl underline underline-offset-8 decoration-green-500 text-white">
-            Ntwali Pacifique
+            Pacifique Ntwali
           </span>
           .
         </h1>
         {/* Hero description*/}
         <p className="md:w-96 text-lg text-gray-300">
-          I am a Tech and Web Developer based in Rwanda 🇷🇼, dedicated to
+          I am a Web Developer and Tech enthusiast based in Rwanda 🇷🇼, dedicated to
           crafting digital experiences that thrive on the internet. 🙂
         </p>
         {/* Hero btn link */}
