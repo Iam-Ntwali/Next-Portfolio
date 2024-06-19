@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 export default function Navbar({ className }: { className?: string }) {
   const socials = [
     {
-      link: "https://www.linkedin.com/in/ntwali-p/",
+      link: "https://www.linkedin.com/in/pacifique-ntwali/",
       label: "LinkedIn",
       Icon: SiLinkedin,
       color: "#0a66c2",
