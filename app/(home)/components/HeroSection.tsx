@@ -10,18 +10,18 @@ export default function HeroSection() {
       {/* hero section text content/ Right side*/}
       <div className="space-y-10 text-center lg:text-left">
         {/* Hero title */}
-        <h1 className="text-4xl lg:text-7xl font-bold text-gray-400">
+        <h1 className="text-3xl lg:text-5xl   text-white">
           Hello There!👋🏾,
           <br /> {"I'm "}
-          <span className="text-3xl lg:text-5xl underline underline-offset-8 decoration-green-500 text-white">
+          <span className="text-4xl lg:text-7xl font-bold text-gray-400 underline underline-offset-8 decoration-green-500">
             Pacifique Ntwali
           </span>
           .
         </h1>
         {/* Hero description*/}
         <p className="md:w-96 text-lg text-gray-300">
-          I am a Web Developer and Tech enthusiast based in Rwanda 🇷🇼, dedicated to
-          crafting digital experiences that thrive on the internet. 🙂
+          I am a Web Developer and Tech enthusiast based in Rwanda 🇷🇼, dedicated
+          to crafting digital experiences that thrive on the internet. 🙂
         </p>
         {/* Hero btn link */}
         <Link
